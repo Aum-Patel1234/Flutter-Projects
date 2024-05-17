@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ticktacktoe/widgets/CustomGridTile.dart';
-import 'package:ticktacktoe/widgets/texts.dart';
+import 'package:ticktacktoe/widgets/PlayerInfoBar.dart';
+import 'package:ticktacktoe/widgets/alertBoxes.dart';
+import 'package:ticktacktoe/widgets/functions.dart';
 
 int score_of_player1 = 0;
 int score_of_player2 = 0;
+String name_of_player1 = 'Player 1';
+String name_of_player2 = 'Player 2';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,17 +20,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<bool?> grid = List.generate(9, (index) => null);
+  List<List<bool?>> grid = List.generate(
+      3, (index) => List.generate(3, (index) => null)); // creating a null index
+
+  @override
+  void initState(){
+    super.initState();
+  
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
+      name_of_player1 = await askName(context,1) as String;
+      name_of_player2 = await askName(context,2) as String;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
-    Color textColor =
-        Theme.of(context).colorScheme.background == ThemeMode.light
-            ? Colors.black
-            : Colors.white;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -54,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               // color: Colors.amber,
               width: width * 0.7,
-              height: height * 0.32,
+              height: height * 0.33,
               child: GridView.builder(
                 itemCount: 9,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -73,42 +85,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Align(
             alignment: AlignmentDirectional.topCenter,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, height * 0.1, 0, 0),
-              child: Container(
-                width: width * 0.8,
-                height: height * 0.1,
-                // color: Colors.blue,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        player_info(context, 'Player 1', 20,
-                            Theme.of(context).colorScheme.tertiary),
-                        player_info(
-                            context,
-                            '$score_of_player1 \t | \t $score_of_player2',
-                            25,
-                            Colors.amber),
-                        player_info(context, 'Player 2', 20,
-                            Theme.of(context).colorScheme.tertiary),
-                      ],
-                    ),
-                    SizedBox(
-                      height: height * 0.01,
-                    ),
-                    const Text(
-                      'Player 1 is winning',
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.amber,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            child: PlayerInfoBar(),
           ),
           Positioned(
             right: 10,
@@ -146,12 +123,7 @@ class _HomePageState extends State<HomePage> {
                           color: Theme.of(context).colorScheme.secondary)),
                   onPressed: () {
                     setState(() {
-                      for (int i = 0; i < grid.length; i++) {
-                        if (grid[i] != null) {
-                          grid[i] = null;
-                        }
-                        // print(grid[i]);
-                      }
+                      reset(grid);
                       isX = false;
                     });
                   },
@@ -159,6 +131,8 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          
+
         ],
       ),
     );
