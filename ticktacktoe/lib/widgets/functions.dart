@@ -55,7 +55,7 @@ Future<void> showDialogbox(BuildContext context,bool isX) {
 
 void reset(List<List<bool?>> grid) {
   for (int i = 0; i < grid.length; i++) {
-    for (int j = 0; j < grid[0].length; j++) {
+    for (int j = 0; j < grid[i].length; j++) {
       grid[i][j] = null;
     }
   }
