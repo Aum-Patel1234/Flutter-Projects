@@ -18,30 +18,34 @@ class _Appbar extends State<Appbar> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
+        const Row(
           children: [
-            const SizedBox(
+            SizedBox(
               width: 25,
               height: 25,
               child: Image(
-                image: AssetImage('assets/images/icons8-microsoft-todo-2019-48.png',),
+                image: AssetImage(
+                  'assets/images/icons8-microsoft-todo-2019-48.png',
+                ),
               ),
             ),
-            const SizedBox(
+            SizedBox(
               width: 15,
             ),
-            Container(
-              child: const CustonDropdownMenu(),
-            ),
+            CustonDropdownMenu(),
           ],
         ),
         Row(
           children: [
-            Icon(Icons.search,color: themeColor),
-            const SizedBox(
-              width: 15,
+            GestureDetector(
+              onTap: () {},
+              child: Icon(Icons.search, color: themeColor),
             ),
-            Icon(Icons.more_vert,color: themeColor)
+            const SizedBox(width: 15.0), // Optional spacing between icons
+            GestureDetector(
+              onTap: () {},
+              child: Icon(Icons.more_vert, color: themeColor),
+            ),
           ],
         )
       ],

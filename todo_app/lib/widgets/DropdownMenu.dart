@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/widgets/Appbar.dart';
 
 class CustonDropdownMenu extends StatefulWidget {
-  const CustonDropdownMenu({super.key});
+  final double? width;
+  final bool disableIcon;
+  
+  const CustonDropdownMenu({super.key, this.width, this.disableIcon=false});
 
   @override
   State<CustonDropdownMenu> createState() => _CustonDropdownMenu();
@@ -28,19 +31,23 @@ class _CustonDropdownMenu extends State<CustonDropdownMenu> {
   Section? selected;
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return DropdownMenu(
+      width: widget.width ?? width*0.5,
       controller: sectioncontroller,
-      initialSelection: Section.one,
+      initialSelection: !widget.disableIcon ? Section.one : Section.two,
       // enableFilter: true,
       // enableSearch: true,
       requestFocusOnTap: true,        // important property
-      label: const Text(
+      label: !widget.disableIcon ? const Text(
         'Sections',
         style: TextStyle(color: Colors.white60),
-      ),
-      leadingIcon: const Icon(Icons.search,color: Colors.white),
+      ):const SizedBox(),
+      leadingIcon: !widget.disableIcon ? const Icon(Icons.search,color: Colors.white) : const SizedBox(),
       textStyle: TextStyle(color: themeColor),
       inputDecorationTheme: InputDecorationTheme(
+        isDense: !widget.disableIcon ? true : false,            // useful
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         )
@@ -51,18 +58,24 @@ class _CustonDropdownMenu extends State<CustonDropdownMenu> {
         });
       },
       dropdownMenuEntries:
-          Section.values.map<DropdownMenuEntry<Section>>((Section section) {
-        return DropdownMenuEntry(
+          Section.values.where((section){
+            if(widget.disableIcon && (section == Section.one || section == Section.seven || section == Section.eight) ){
+              return false;
+            }
+            return true;
+          })
+          .map<DropdownMenuEntry<Section>>((Section section) {
+           return DropdownMenuEntry(
           value: section, 
           label: section.string,
-          leadingIcon: Icon(section.icon),
+          leadingIcon: !widget.disableIcon ? Icon(section.icon) : const SizedBox(),
           enabled: section.string != 'New List',
           
           style: MenuItemButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 36, 36, 36),
-            foregroundColor: Colors.white,
-            iconColor: Colors.white54,
-            disabledForegroundColor: Colors.white24,
+            foregroundColor: Colors.black,
+            iconColor: Colors.black87,
+            disabledForegroundColor: Colors.black26,
+            
           )
         );
       }).toList(),
