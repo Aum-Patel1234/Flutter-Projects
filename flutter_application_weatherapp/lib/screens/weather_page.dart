@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_weatherapp/bloc/weather_bloc.dart';
 import 'package:flutter_application_weatherapp/bloc/weather_event.dart';
 import 'package:flutter_application_weatherapp/bloc/weather_state.dart';
@@ -7,7 +9,8 @@ import 'package:flutter_application_weatherapp/widgets/CustomFloatingActionButto
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/weather.dart';
 
-List<String> cities = ["Mumbai", "Kolkata","Chennai","Nairobi"];
+Set<String> cities = {};
+Set<Weather> weatherlist = {};
 
 // ignore: must_be_immutable
 class WeatherPage extends StatelessWidget {
@@ -21,19 +24,37 @@ class WeatherPage extends StatelessWidget {
         backgroundColor: Colors.black,
         title: const Text(
           'Weather App',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'tiny5',
+            fontWeight: FontWeight.bold,
+            fontSize: 24.0,
+            letterSpacing: 2.0,
+          ),
         ),
+        centerTitle: true,
+        elevation: 0,
       ),
-      body: Column(
+      body: Stack(
         children: [
           BlocBuilder<WeatherBloc, WeatherState>(
             builder: (context, state) {
               if (state is WeatherLoaded) {
+                if (cities.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'No Cities added',
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                  );
+                }
                 return Expanded(
                   child: ListView.builder(
                     itemCount: cities.length,
                     itemBuilder: (context, index) {
-                      return CustomCityTile(weather: state.weatherList[index],);
+                      return CustomCityTile(
+                        weather: weatherlist.elementAt(index),
+                      );
                     },
                   ),
                 );
@@ -45,24 +66,33 @@ class WeatherPage extends StatelessWidget {
                   ),
                 );
               }
-              return Container(
-                height: 200,
-                color: Colors.white,
-                child: const Center(
-                  child: Text('No Data'),
+              return const Center(
+                child: Text(
+                  'Weather App',
+                  style: TextStyle(color: Colors.white),
                 ),
               );
-
-              // return const SizedBox();
             },
           ),
-          FilledButton(
-            onPressed: () {
-              context.read<WeatherBloc>().add(GetDetails());
-            },
-            child: const Text(
-              'Get',
-              style: TextStyle(color: Colors.white),
+          Positioned(
+            left: 10,
+            bottom: 10,
+            child: Container(
+              width: 50, // Adjust as needed for your desired button size
+              height: 50,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.pink, // Change to your desired button color
+              ),
+              child: Center(
+                child: IconButton(
+                  onPressed: () {
+                    context.read<WeatherBloc>().add(GetDetails());
+                  },
+                  icon: const Icon(Icons.refresh),
+                  color: Colors.white,
+                ),
+              ),
             ),
           )
         ],

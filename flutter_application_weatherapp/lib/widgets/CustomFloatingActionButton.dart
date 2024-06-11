@@ -1,39 +1,67 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_application_weatherapp/bloc/weather_bloc.dart';
+import 'package:flutter_application_weatherapp/bloc/weather_event.dart';
 import 'package:flutter_application_weatherapp/screens/weather_page.dart';
+import 'package:flutter_application_weatherapp/weatherconnection.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomFloatingActionButton extends StatelessWidget {
-  const CustomFloatingActionButton({
-    super.key,
-  });
+class CustomFloatingActionButton extends StatefulWidget {
+  const CustomFloatingActionButton({super.key});
+
+  @override
+  _CustomFloatingActionButtonState createState() => _CustomFloatingActionButtonState();
+}
+
+class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton> {
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController cityController = TextEditingController();
+  String? validationError;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () async {
-        String? city = await showDialog<String?>(
+      onPressed: () {
+        showDialog(
           context: context,
           builder: (context) {
-            TextEditingController? citycontroller = TextEditingController();
             return AlertDialog(
               backgroundColor: Colors.deepPurpleAccent,
               title: const Text(
                 'Write the City Name',
                 style: TextStyle(color: Colors.white),
               ),
-              content: TextField(
-                controller: citycontroller,
-                decoration: const InputDecoration(
-                  hintText: 'Enter City Name here',
-                  hintStyle: TextStyle(
-                    color: Colors.white24,
+              content: Row(
+                children: [
+                  Expanded(
+                    child: Form(
+                      key: formKey,
+                      child: TextFormField(
+                        controller: cityController,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: 'Enter City Name here',
+                          hintStyle: const TextStyle(
+                            color: Colors.white24,
+                          ),
+                          errorText: validationError,
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) return "Enter a city";
+                          return null;
+                        },
+                      ),
+                    ),
                   ),
-                ),
+                  const Icon(
+                    Icons.location_city,
+                    color: Colors.white60,
+                  ),
+                ],
               ),
               actions: [
                 FilledButton.tonal(
                   onPressed: () {
+                    cityController.text = "";
                     Navigator.pop(context);
                   },
                   child: const Text(
@@ -42,8 +70,21 @@ class CustomFloatingActionButton extends StatelessWidget {
                   ),
                 ),
                 FilledButton.tonal(
-                  onPressed: () {
-                    Navigator.pop<String?>(context, citycontroller.text);
+                  onPressed: () async {
+                    // Validate form
+                    if (formKey.currentState!.validate()) {
+                      // Check if the city exists
+                      bool exists = await doesCityExist(cityController.text);
+                      if (exists) {
+                        context.read<WeatherBloc>().add(AddCity(weatherList: weatherlist, city: cityController.text));
+                        Navigator.pop(context);
+                      } else {
+                        setState(() {
+                          validationError = "Enter a valid city";
+                        });
+                      }
+                    }
+                    cityController.text = "";
                   },
                   child: const Text(
                     'Save',
@@ -54,7 +95,6 @@ class CustomFloatingActionButton extends StatelessWidget {
             );
           },
         );
-        cities.add(city!);
       },
       shape: const CircleBorder(),
       child: const Icon(
@@ -63,5 +103,11 @@ class CustomFloatingActionButton extends StatelessWidget {
         color: Colors.blueAccent,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    cityController.dispose();
   }
 }

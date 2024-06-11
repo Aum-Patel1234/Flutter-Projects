@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_weatherapp/bloc/weather_bloc.dart';
 import 'package:flutter_application_weatherapp/screens/weather_page.dart';
+import 'package:flutter_application_weatherapp/weatherconnection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
+  get();
   runApp(const MyApp());
 }
 

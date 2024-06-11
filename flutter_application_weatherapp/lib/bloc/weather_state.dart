@@ -9,8 +9,8 @@ class WeatherLoading extends WeatherState {
 }
 
 class WeatherLoaded extends WeatherState {
-  final List<Weather> weatherList;
-  WeatherLoaded( {required this.weatherList});
+  Weather weather;
+  WeatherLoaded( {required this.weather});
 }
 
 class WeatherError extends WeatherState {}

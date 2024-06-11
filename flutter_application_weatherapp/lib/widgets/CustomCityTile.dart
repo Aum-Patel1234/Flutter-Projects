@@ -4,11 +4,12 @@ import 'package:weather/weather.dart';
 class CustomCityTile extends StatelessWidget {
   final Weather weather;
 
-  CustomCityTile({required this.weather, super.key});
+  const CustomCityTile({required this.weather, super.key});
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    String cloudiness = cloudy();
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -63,7 +64,7 @@ class CustomCityTile extends StatelessWidget {
                         color: Colors.white),
                   ),
                   Text(
-                    weather.cloudiness?.toString() ?? 'N/A',
+                    cloudiness,
                     style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -76,5 +77,16 @@ class CustomCityTile extends StatelessWidget {
         ),
       ),
     );
+  }
+  String cloudy(){
+    double? cloudiness = weather.cloudiness;
+    if(cloudiness! > 95){
+      return "Overcast";
+    }else if(cloudiness > 50){
+      return "Mostly cloudy";
+    }else if(cloudiness > 25){
+      return "Partly cloudy";
+    }
+    return "Sunny";
   }
 }
