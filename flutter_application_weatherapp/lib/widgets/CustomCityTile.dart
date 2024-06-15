@@ -52,7 +52,7 @@ class CustomCityTile extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
+              padding: const EdgeInsets.fromLTRB(15, 4, 15, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_weatherapp/bloc/weather_bloc.dart';
 import 'package:flutter_application_weatherapp/bloc/weather_event.dart';
 import 'package:flutter_application_weatherapp/bloc/weather_state.dart';
