@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_timerapp/bloc/timer_bloc.dart';
-import 'package:flutter_application_timerapp/bloc/timer_event.dart';
-import 'package:flutter_application_timerapp/bloc/timer_state.dart';
+import 'package:flutter_application_timerapp/bloc/TimerBloc/timer_bloc.dart';
+import 'package:flutter_application_timerapp/bloc/TimerBloc/timer_event.dart';
+import 'package:flutter_application_timerapp/bloc/TimerBloc/timer_state.dart';
 import 'package:flutter_application_timerapp/widgets/Buttons/PauseButton.dart';
 import 'package:flutter_application_timerapp/widgets/Buttons/PlayButton.dart';
 import 'package:flutter_application_timerapp/widgets/Buttons/ResetButton.dart';

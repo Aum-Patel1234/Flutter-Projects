@@ -19,7 +19,6 @@ class PlayButton extends StatelessWidget {
         onTap: onTap,
         child: const Icon(
           Icons.play_arrow,
-          color: Colors.white,
           size: 35,
         ),
       ),

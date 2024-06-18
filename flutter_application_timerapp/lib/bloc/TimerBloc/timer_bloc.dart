@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_application_timerapp/bloc/timer_event.dart';
-import 'package:flutter_application_timerapp/bloc/timer_state.dart';
+import 'package:flutter_application_timerapp/bloc/TimerBloc/timer_event.dart';
+import 'package:flutter_application_timerapp/bloc/TimerBloc/timer_state.dart';
 import 'package:flutter_application_timerapp/widgets/Ticker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

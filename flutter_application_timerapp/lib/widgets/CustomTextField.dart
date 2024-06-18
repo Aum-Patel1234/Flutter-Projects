@@ -15,25 +15,23 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      style: const TextStyle(color: Colors.white),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.white54),
         label: Text(
           hintText,
-          style: const TextStyle(color: Colors.white70),
+          style :TextStyle(color:Theme.of(context).brightness == Brightness.dark? Colors.white54 : Colors.black54),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.white,
+          borderSide:  BorderSide(
+            color: Theme.of(context).brightness == Brightness.dark? Colors.white: Colors.black87,
             width: 3,
           ),
           borderRadius: BorderRadius.circular(15),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.white,
+          borderSide: BorderSide(
+            color: Theme.of(context).brightness == Brightness.dark? Colors.white: Colors.black87,
           ),
           borderRadius: BorderRadius.circular(15),
         ),

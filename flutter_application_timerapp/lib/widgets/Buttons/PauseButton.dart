@@ -19,7 +19,6 @@ class PauseButton extends StatelessWidget {
         onTap: onTap,
         child: const Icon(
           Icons.pause,
-          color: Colors.white,
           size: 35,
         ),
       ),

@@ -13,7 +13,6 @@ class CustomAlertDialog extends StatelessWidget{
      return AlertDialog(
         title: const Text(
           'Set Time',
-          style: TextStyle(color: Colors.white),
         ),
         content: Row(
           children: [
@@ -24,7 +23,7 @@ class CustomAlertDialog extends StatelessWidget{
               padding: EdgeInsets.all(10.0),
               child: Text(
                 ':',
-                style: TextStyle(color: Colors.white,fontSize: 30),
+                style: TextStyle(fontSize: 30),
               ),
             ),
             Expanded(
@@ -34,7 +33,7 @@ class CustomAlertDialog extends StatelessWidget{
               padding: EdgeInsets.all(10.0),
               child: Text(
                 ':',
-                style: TextStyle(color: Colors.white,fontSize: 30),
+                style: TextStyle(fontSize: 30),
               ),
             ),
             Expanded(
@@ -49,7 +48,6 @@ class CustomAlertDialog extends StatelessWidget{
             },
             child: const Text(
               'Cancel',
-              style: TextStyle(color: Colors.black87),
             ),
           ),
           FilledButton.tonal(
@@ -59,7 +57,6 @@ class CustomAlertDialog extends StatelessWidget{
             },
             child: const Text(
               'Save',
-              style: TextStyle(color: Colors.black87),
             ),
           )
         ],

@@ -10,7 +10,7 @@ abstract class TimerState extends Equatable{
 }
 
 class TimerInitial extends TimerState{
-  TimerInitial({required super.hrs, required super.minutes, required super.seconds});
+  const TimerInitial({required super.hrs, required super.minutes, required super.seconds});
 
   @override
   List<Object?> get props => [hrs,minutes,seconds];

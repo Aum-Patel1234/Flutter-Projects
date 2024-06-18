@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_timerapp/bloc/timer_bloc.dart';
-import 'package:flutter_application_timerapp/bloc/timer_state.dart';
+import 'package:flutter_application_timerapp/bloc/TimerBloc/timer_bloc.dart';
+import 'package:flutter_application_timerapp/bloc/TimerBloc/timer_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TimeSections extends StatelessWidget {
@@ -24,23 +24,23 @@ class TimeSections extends StatelessWidget {
               children: [
                 Text(
                   state.hrs.toString(),
-                  style: const TextStyle(color: Colors.white, fontSize: 35),
+                  style: const TextStyle( fontSize: 35),
                 ),
                 const Text(
                   ':',
-                  style: TextStyle(color: Colors.white, fontSize: 40),
+                  style: TextStyle( fontSize: 40),
                 ),
                 Text(
                   state.minutes.toString(),
-                  style: const TextStyle(color: Colors.white, fontSize: 35),
+                  style: const TextStyle( fontSize: 35),
                 ),
                 const Text(
                   ':',
-                  style: TextStyle(color: Colors.white, fontSize: 40),
+                  style: TextStyle( fontSize: 40),
                 ),
                 Text(
                   state.seconds.toString(),
-                  style: const TextStyle(color: Colors.white, fontSize: 35),
+                  style: const TextStyle( fontSize: 35),
                 ),
               ],
             ),
