@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_recipes_app/model/recipes_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Recipe extends StatelessWidget {
   const Recipe({super.key, required this.recipe});
@@ -11,12 +14,29 @@ class Recipe extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(recipe.name),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final Uri url = Uri(
+                scheme: 'tel',
+                path: '1234567890',
+              );
+              try {
+                await launchUrl(url);
+              } catch (e) {
+                log('Error: $e');
+              }
+            },
+            icon: const Icon(Icons.call),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(recipe.imagelink, width: double.infinity, fit: BoxFit.cover),
+            Image.network(recipe.imagelink,
+                width: double.infinity, fit: BoxFit.cover),
 
             // Top Section with Key Details
             Padding(
@@ -32,8 +52,10 @@ class Recipe extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildKeyDetail(Icons.access_time, "${recipe.prepTimeMinutes + recipe.cookTimeMinutes} mins"),
-                      _buildKeyDetail(Icons.restaurant_menu, "${recipe.servings} servings"),
+                      _buildKeyDetail(Icons.access_time,
+                          "${recipe.prepTimeMinutes + recipe.cookTimeMinutes} mins"),
+                      _buildKeyDetail(
+                          Icons.restaurant_menu, "${recipe.servings} servings"),
                       _buildKeyDetail(Icons.thermostat, recipe.difficulty),
                     ],
                   ),
@@ -41,8 +63,10 @@ class Recipe extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildKeyDetail(Icons.local_fire_department, "${recipe.caloriesPerServing} kcal"),
-                      _buildKeyDetail(Icons.star, "${recipe.rating} (${recipe.reviewCount} reviews)"),
+                      _buildKeyDetail(Icons.local_fire_department,
+                          "${recipe.caloriesPerServing} kcal"),
+                      _buildKeyDetail(Icons.star,
+                          "${recipe.rating} (${recipe.reviewCount} reviews)"),
                       _buildKeyDetail(Icons.flag, recipe.cuisine),
                     ],
                   ),
@@ -50,7 +74,9 @@ class Recipe extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
 
             // Ingredients Section
             Padding(
@@ -61,16 +87,20 @@ class Recipe extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: recipe.ingredients.map((ingredient) {
-                  return Text("\t\t\t• $ingredient", style: Theme.of(context).textTheme.bodyLarge);
+                  return Text("\t\t\t• $ingredient",
+                      style: Theme.of(context).textTheme.bodyLarge);
                 }).toList(),
               ),
             ),
 
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
 
             // Instructions Section
             Padding(
@@ -81,7 +111,8 @@ class Recipe extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: recipe.instructions.asMap().entries.map((entry) {
@@ -89,7 +120,8 @@ class Recipe extends StatelessWidget {
                   String instruction = entry.value;
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: Text("$index. $instruction", style: Theme.of(context).textTheme.bodyLarge),
+                    child: Text("$index. $instruction",
+                        style: Theme.of(context).textTheme.bodyLarge),
                   );
                 }).toList(),
               ),
@@ -97,7 +129,8 @@ class Recipe extends StatelessWidget {
 
             // Tags Section
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Wrap(
                 spacing: 8.0,
                 children: recipe.tags.map((tag) {
@@ -108,6 +141,21 @@ class Recipe extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final Uri emailUri = Uri(
+            scheme: 'mailto',
+            path: 'example@example.com',
+          );
+
+          try {
+            await launchUrl(emailUri);
+          } catch (e) {
+            log('Error: $e');
+          }
+        },
+        child: const Icon(Icons.email),
+      ),
     );
   }
 
@@ -116,7 +164,7 @@ class Recipe extends StatelessWidget {
       children: [
         Icon(icon, size: 18.0),
         const SizedBox(width: 4.0),
-        Text(detail, style: TextStyle(fontSize: 16.0)),
+        Text(detail, style: const TextStyle(fontSize: 16.0)),
       ],
     );
   }

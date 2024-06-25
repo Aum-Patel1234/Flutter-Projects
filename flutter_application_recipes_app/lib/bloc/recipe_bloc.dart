@@ -13,11 +13,13 @@ class RecipeBloc extends Bloc<RecipeEvent,RecipeState>{
   }
 
   FutureOr<void> _onGetRecipes(GetRecipes event, Emitter<RecipeState> emit) async{
-    emit(RecipeStateLoading(recipes: []));
+    emit(RecipeStateLoading(recipes: state.recipes));
 
-    ApiService api = ApiService();
-    DataModel? data = await api.getrecipies();
-    state.recipes.addAll(data!.recipes);
+    if(state.recipes.isEmpty){
+      ApiService api = ApiService();
+      DataModel? data = await api.getrecipies();
+      state.recipes.addAll(data!.recipes);
+    }
 
     emit(RecipeStateLoaded(recipes: state.recipes));
   }

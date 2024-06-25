@@ -12,6 +12,7 @@ class ApiService {
       final Uri url = Uri.parse('https://dummyjson.com/recipes');
       final Response data = await _client.get(url);
       if(data.statusCode == 200){
+        log('here');
         return DataModel.fromJSON(data.body);
       }
       log('Response Failed !');
