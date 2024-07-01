@@ -6,7 +6,6 @@ ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
   ).copyWith(
     secondary: Colors.brown[200],
-    background: Colors.brown[900],
     surface: Colors.brown[800],
   ),
   useMaterial3: true,

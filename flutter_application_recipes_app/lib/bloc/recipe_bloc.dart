@@ -8,19 +8,16 @@ import 'package:flutter_application_recipes_app/model/data_model.dart';
 import 'package:flutter_application_recipes_app/service/api_service.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent,RecipeState>{
-  RecipeBloc():super(RecipeStateInitial(recipes: [])){
+  RecipeBloc():super(RecipeStateInitial()){
     on<GetRecipes>(_onGetRecipes);
   }
 
   FutureOr<void> _onGetRecipes(GetRecipes event, Emitter<RecipeState> emit) async{
-    emit(RecipeStateLoading(recipes: state.recipes));
+    emit(RecipeStateLoading());
 
-    if(state.recipes.isEmpty){
-      ApiService api = ApiService();
-      DataModel? data = await api.getrecipies();
-      state.recipes.addAll(data!.recipes);
-    }
+    ApiService api = ApiService();
+    DataModel? data = await api.getrecipies();
 
-    emit(RecipeStateLoaded(recipes: state.recipes));
+    emit(RecipeStateLoaded(recipes: data!.recipes));
   }
 }
