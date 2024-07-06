@@ -1,8 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stocks_app/bloc/product_bloc.dart';
-import 'package:stocks_app/bloc/product_event.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_bloc.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_event.dart';
 import 'package:stocks_app/view/sections/favourites_section.dart';
 import 'package:stocks_app/view/sections/home_section.dart';
 import 'package:stocks_app/view/sections/profile_section.dart';
@@ -29,23 +29,31 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.search,size: 30,),
+            icon: const Icon(
+              Icons.search,
+              size: 30,
+            ),
           ),
-          const SizedBox(width: 10,),
+          const SizedBox(
+            width: 10,
+          ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.shopping_cart,size: 30,),
+            icon: const Icon(
+              Icons.shopping_cart,
+              size: 30,
+            ),
           ),
         ],
       ),
       body: PageView(
         controller: _pageController,
-        children: const [
-          HomeSection(),
-          FavouritesSection(),
-          ProfileSection(),
+        children: [
+          const HomeSection(),
+          const FavouritesSection(),
+          ProfileSection(username: widget.username,),
         ],
-        onPageChanged: (index){
+        onPageChanged: (index) {
           setState(() {
             _index = index;
           });
@@ -63,12 +71,14 @@ class _HomePageState extends State<HomePage> {
         ],
         index: _index,
         height: 55,
-        onTap: (index){
-          _pageController.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
+        onTap: (index) {
+          _pageController.animateToPage(index,
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeIn);
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           context.read<ProductBloc>().add(ProductEventGetProducts());
         },
         child: const Icon(Icons.refresh),
@@ -76,4 +86,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

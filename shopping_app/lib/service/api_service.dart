@@ -46,4 +46,26 @@ class ApiService {
     }
     return null;
   }
+
+  Future<DataModel?> getProducts(String section) async {
+    try {
+      final Uri url = Uri(
+        scheme: 'https',
+        host : 'dummyjson.com',
+        path: '/products/category/$section',
+        queryParameters: {
+          'limit' : '0'
+        }
+      );
+      final Response response = await _client.get(url);
+      if (response.statusCode == 200) {
+        return DataModel.fromJson(response.body);
+      } else {
+        log('Something went wrong..');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 }

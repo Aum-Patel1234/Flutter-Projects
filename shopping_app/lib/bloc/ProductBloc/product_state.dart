@@ -8,10 +8,10 @@ class ProductStateInitialState extends ProductState{}
 class ProductStateLoadingState extends ProductState{}
 
 class ProductStateLoadedState extends ProductState{
+  ProductStateLoadedState({required this.categoryListModel, required this.data});
+
   final Map<int, DataModel> data;
   final CategoryListModel categoryListModel;
-
-  ProductStateLoadedState({required this.categoryListModel, required this.data});
 }
 
 class ProductStateErrorState extends ProductState{}

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stocks_app/bloc/product_event.dart';
-import 'package:stocks_app/bloc/product_state.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_event.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_state.dart';
 import 'package:stocks_app/model/category_list_model.dart';
 import 'package:stocks_app/model/data_model.dart';
 import 'package:stocks_app/service/api_service.dart';
@@ -34,4 +34,5 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductStateErrorState());
     }
   }
+
 }

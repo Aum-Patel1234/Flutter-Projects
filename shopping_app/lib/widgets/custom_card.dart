@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stocks_app/bloc/product_state.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_state.dart';
 import 'package:stocks_app/model/products_model.dart';
 import 'package:stocks_app/view/product_information.dart';
 
-import '../bloc/product_bloc.dart';
+import '../bloc/ProductBloc/product_bloc.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({
@@ -32,9 +32,25 @@ class CustomCard extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: Image(
-                          image: NetworkImage(product.thumbnail),
-                          fit: BoxFit.cover,
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Image(
+                            image: NetworkImage(product.thumbnail),
+                            fit: BoxFit.contain,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded /loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
@@ -53,7 +69,8 @@ class CustomCard extends StatelessWidget {
                                   Expanded(
                                     flex: 4,
                                     child: Column(
-                                      crossAxisAlignment:CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.all(10.0),
@@ -70,7 +87,7 @@ class CustomCard extends StatelessWidget {
                                                         FontWeight.bold),
                                               ),
                                               Text(
-                                                product.brand,
+                                                product.brand == 'null' ? '' : product.brand,
                                                 style: const TextStyle(
                                                   fontSize: 14,
                                                 ),
@@ -124,7 +141,11 @@ class CustomCard extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductInformation(product: product)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductInformation(product: product)));
                         },
                         child: const Text(
                           'Buy Now',

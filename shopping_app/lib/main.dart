@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stocks_app/bloc/product_bloc.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_bloc.dart';
+import 'package:stocks_app/bloc/ProductCategoryBloc/category_bloc.dart';
 import 'package:stocks_app/view/user_information.dart';
 
 void main() {
@@ -12,8 +13,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ProductBloc(),),
+        BlocProvider(create: (context) => CategoryBloc(),),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

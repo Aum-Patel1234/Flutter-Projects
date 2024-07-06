@@ -39,10 +39,23 @@ class ProductInformation extends StatelessWidget {
                   return Center(
                     child: AspectRatio(
                       aspectRatio: 1, // Adjust the aspect ratio if needed
-                      child: Image.network(
-                        product.images[index],
-                        fit: BoxFit.cover,
-                      ),
+                      child: Image(
+                          image: NetworkImage(product.images[index]),
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded /loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            }
+                          },
+                        ),
                     ),
                   );
                 },

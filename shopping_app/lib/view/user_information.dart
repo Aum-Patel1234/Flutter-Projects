@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stocks_app/bloc/product_bloc.dart';
-import 'package:stocks_app/bloc/product_event.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_bloc.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_event.dart';
 import 'package:stocks_app/view/welcome_screen.dart';
 
 class UserInformation extends StatefulWidget {

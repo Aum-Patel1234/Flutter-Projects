@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stocks_app/bloc/ProductCategoryBloc/category_bloc.dart';
+import 'package:stocks_app/bloc/ProductCategoryBloc/category_event.dart';
 import 'package:stocks_app/model/products_model.dart';
+import 'package:stocks_app/view/products_screen.dart';
 import 'package:stocks_app/widgets/custom_card.dart';
 
 class Categories extends StatelessWidget {
@@ -19,7 +23,10 @@ class Categories extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductsSectionScreen(category: category,)));
+              context.read<CategoryBloc>().add(CategoryEventGetSectionProducts(section: category));
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

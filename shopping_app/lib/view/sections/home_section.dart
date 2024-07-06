@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stocks_app/bloc/product_bloc.dart';
-import 'package:stocks_app/bloc/product_state.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_bloc.dart';
+import 'package:stocks_app/bloc/ProductBloc/product_state.dart';
 import 'package:stocks_app/widgets/categories.dart';
 
 class HomeSection extends StatelessWidget {
