@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class ProfileSection extends StatelessWidget {
   const ProfileSection({
-    super.key, required this.username,
+    super.key, required this.username, required this.email,
   });
 
   final String username;
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -25,46 +26,9 @@ class ProfileSection extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         Text(
-          'john.doe@example.com', // Replace with the user's email
+          email, // Replace with the user's email
           style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey),
         ),
-        const SizedBox(height: 20),
-        ElevatedButton.icon(
-          onPressed: () {
-            // Implement edit profile functionality
-          },
-          icon: const Icon(Icons.edit),
-          label: const Text('Edit Profile'),
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size(double.infinity, 50), // Button size
-          ),
-        ),
-        const SizedBox(height: 10),
-        ElevatedButton.icon(
-          onPressed: () {
-            // Implement settings functionality
-          },
-          icon: const Icon(Icons.settings),
-          label: const Text('Settings'),
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size(double.infinity, 50), // Button size
-          ),
-        ),
-        const SizedBox(height: 10),
-        // Logout Button
-        ElevatedButton.icon(
-          onPressed: () {
-            // Implement logout functionality
-          },
-          icon: const Icon(Icons.logout),
-          label: const Text('Logout'),
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size(double.infinity, 50), // Button size
-            iconColor: Colors.red, // Button color
-          ),
-        ),
-        const SizedBox(height: 20),
-        const Divider(),
         const ListTile(
           leading: Icon(Icons.phone),
           title: Text('Phone Number'),
@@ -75,6 +39,19 @@ class ProfileSection extends StatelessWidget {
           title: Text('Address'),
           subtitle: Text('123 Main Street, City, Country'), // Replace with the user's address
         ),
+        const Divider(),
+        ListTile(
+          onTap: (){},
+          leading: const Icon(Icons.settings),
+          title: const Text('Settings'),
+        ),
+        const SizedBox(height: 10),
+        ListTile(
+          onTap: (){},
+          leading: const Icon(Icons.logout),
+          title: const Text('Logout'),
+        ),
+        const Divider(),
       ],
     );
   }

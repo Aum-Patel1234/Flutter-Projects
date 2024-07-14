@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stocks_app/bloc/ProductBloc/product_bloc.dart';
 import 'package:stocks_app/bloc/ProductBloc/product_event.dart';
 import 'package:stocks_app/view/welcome_screen.dart';
+import 'package:stocks_app/widgets/textfield.dart';
 
 class UserInformation extends StatefulWidget {
   const UserInformation({super.key});
@@ -12,8 +13,10 @@ class UserInformation extends StatefulWidget {
 }
 
 class _UserInformationState extends State<UserInformation> {
-  final TextEditingController _controller = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _namecontroller = TextEditingController();
+  final GlobalKey<FormState> _nameformKey = GlobalKey<FormState>();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final GlobalKey<FormState> _emailformKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -39,37 +42,17 @@ class _UserInformationState extends State<UserInformation> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            Form(
-              key: _formKey,
-              child: TextFormField(
-                controller: _controller,
-                decoration: InputDecoration(
-                  hintText: 'Username',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(width: 1),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: const BorderSide(width: 3),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Username can\'t be empty';
-                  }
-                  return null;
-                },
-              ),
-            ),
+            CustomTextFormField(field: 'Username',controller: _namecontroller,formKey: _nameformKey,),
+            const SizedBox(height: 16),
+            CustomTextFormField(field: 'Email',controller: _emailcontroller,formKey: _emailformKey,),
             const SizedBox(height: 16),
             FilledButton.tonal(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                if (_nameformKey.currentState!.validate() && _emailformKey.currentState!.validate()) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => WelcomeScreen(username: _controller.text),
+                      builder: (context) => WelcomeScreen(username: _namecontroller.text,email: _emailcontroller.text,),
                     ),
                   );
                 }

@@ -9,14 +9,14 @@ import 'package:stocks_app/model/data_model.dart';
 import 'package:stocks_app/service/api_service.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  ProductBloc() : super(ProductStateInitialState()) {
+  ProductBloc() : super(ProductStateLoadingState()) {
     on<ProductEventGetProducts>(_onProductEventGetProducts);
   }
 
   final ApiService _apiService = ApiService();
 
   FutureOr<void> _onProductEventGetProducts(ProductEventGetProducts event, Emitter<ProductState> emit) async {
-    emit(ProductStateLoadingState());
+    // emit(ProductStateLoadingState());
     CategoryListModel? categoriesList = await _apiService.getCategoryList();
 
     if (categoriesList != null) {
@@ -34,5 +34,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductStateErrorState());
     }
   }
+
 
 }

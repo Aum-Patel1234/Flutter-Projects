@@ -1,16 +1,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stocks_app/bloc/ProductBloc/product_bloc.dart';
-import 'package:stocks_app/bloc/ProductBloc/product_event.dart';
 import 'package:stocks_app/view/sections/favourites_section.dart';
 import 'package:stocks_app/view/sections/home_section.dart';
 import 'package:stocks_app/view/sections/profile_section.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.username});
+  const HomePage({super.key, required this.username, required this.email});
 
   final String username;
+  final String email;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -19,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
   int _index = 0;
+  bool _floatingActionButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,18 +50,19 @@ class _HomePageState extends State<HomePage> {
         children: [
           const HomeSection(),
           const FavouritesSection(),
-          ProfileSection(username: widget.username,),
+          ProfileSection(username: widget.username,email: widget.email,),
         ],
         onPageChanged: (index) {
           setState(() {
             _index = index;
+            _floatingActionButton = index == 2 ? true : false;
           });
         },
       ),
       bottomNavigationBar: CurvedNavigationBar(
         animationDuration: const Duration(milliseconds: 300),
         backgroundColor: const Color(0xFFFDF0D5),
-        buttonBackgroundColor: const Color(0xFFFDF0D5),
+        buttonBackgroundColor: Colors.transparent,
         color: Colors.black12,
         items: const <Widget>[
           Icon(Icons.home, size: 30),
@@ -77,12 +77,10 @@ class _HomePageState extends State<HomePage> {
               curve: Curves.easeIn);
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<ProductBloc>().add(ProductEventGetProducts());
-        },
-        child: const Icon(Icons.refresh),
-      ),
+      floatingActionButton: _floatingActionButton ? FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.edit),
+      ) : null,
     );
   }
 }

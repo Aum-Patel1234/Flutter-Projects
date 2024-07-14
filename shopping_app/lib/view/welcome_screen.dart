@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:stocks_app/view/home_page.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key, required this.username});
+  const WelcomeScreen({super.key, required this.username, required this.email});
 
   final String username;
+  final String email;
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -26,9 +27,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         });
     },);
     Future.delayed(const Duration(seconds: 3),(){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(username: widget.username,)));
-        
-        // add an event to load the data
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(username: widget.username,email : widget.email)));
       },
     );
   }

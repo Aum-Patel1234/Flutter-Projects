@@ -13,8 +13,6 @@ class CategoryBloc extends Bloc<CategoryEvent,CategoryState>{
 
   final ApiService _apiService = ApiService();
 
-
-
   Future<FutureOr<void>> _onCategoryEventGetSectionProducts(CategoryEventGetSectionProducts event, Emitter<CategoryState> emit) async {
     emit(CategoryStateLoading());
     DataModel? data = await _apiService.getProducts(event.section);
@@ -24,4 +22,5 @@ class CategoryBloc extends Bloc<CategoryEvent,CategoryState>{
       emit(CategoryStateError());
     }
   }
+
 }
