@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_localstorage/model/todo_model.dart';
 
 abstract class CreateTodoEvent{}
 
@@ -11,9 +12,8 @@ class CreateTodoEventOnCreate extends CreateTodoEvent{
   final TimeOfDay toBeCompletedByTime;
 } 
 
-class CreateTodoEventGetTodo extends CreateTodoEvent{
-  CreateTodoEventGetTodo(this.id);
+class CreateTodoEventOnUpdate extends CreateTodoEvent{
+  CreateTodoEventOnUpdate({required this.todo});
 
-  final int id;
+  final TodoModel todo;
 } 
-class CreateTodoEventOnUpdate extends CreateTodoEvent{} 

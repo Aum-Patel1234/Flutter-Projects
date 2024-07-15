@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_event.dart';
-import 'package:todo_app_localstorage/bloc/create_todo/create_todo_bloc.dart';
+import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_bloc.dart';
 import 'package:todo_app_localstorage/bloc/date_bloc/date_bloc.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_bloc.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_event.dart';

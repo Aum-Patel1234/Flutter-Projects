@@ -13,7 +13,7 @@ class AllTodosBody extends StatelessWidget {
     return BlocBuilder<AllTodosBloc,AllTodosState>(
       builder: (context, state) {
         if(state.isLoading == true){
-          return const CircularProgressIndicator.adaptive();
+          return const Center(child: CircularProgressIndicator.adaptive());
         }  
         if(state.todos.isNotEmpty){
           return ListView.builder(

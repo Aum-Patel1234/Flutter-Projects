@@ -15,6 +15,10 @@ class CustomDateAndTimePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(todo != null){
+      StaticDateTime.date = todo!.toBeCompletedByDate;
+      StaticDateTime.time = todo!.toBeCompletedByTime;
+    }
     return BlocBuilder<DateBloc, DateState>(builder: (context, state) {
       return Column(
         children: [
@@ -40,7 +44,7 @@ class CustomDateAndTimePicker extends StatelessWidget {
             onPressed: () {
               showTimePicker(
                 context: context,
-                initialTime: const TimeOfDay(hour: 0, minute: 0),
+                initialTime: TimeOfDay.now(),
               ).then((value) {
                 if (value != null) {
                   StaticDateTime.time = value;

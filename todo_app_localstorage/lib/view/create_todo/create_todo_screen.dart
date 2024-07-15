@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_event.dart';
-import 'package:todo_app_localstorage/bloc/create_todo/create_todo_bloc.dart';
-import 'package:todo_app_localstorage/bloc/create_todo/create_todo_event.dart';
-import 'package:todo_app_localstorage/bloc/create_todo/create_todo_state.dart';
+import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_bloc.dart';
+import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_event.dart';
+import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_state.dart';
 import 'package:todo_app_localstorage/model/todo_model.dart';
 import 'package:todo_app_localstorage/view/create_todo/custom_date_time_picker.dart';
 import 'package:todo_app_localstorage/view/create_todo/custom_textfield.dart';
@@ -35,7 +35,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
       StaticDateTime.time = widget.todo!.toBeCompletedByTime;
     } else {
       StaticDateTime.date = DateTime.now();
-      StaticDateTime.time = const TimeOfDay(hour: 8, minute: 0);
+      StaticDateTime.time = TimeOfDay.now();
     }
   }
 
@@ -46,7 +46,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
       listener: (context, state) {
         if (state.todoStatus == TodoStatus.completed) {
           Navigator.of(context).pop();
-          showSnackBar('Todo Created !');
+          showSnackBar(widget.todo == null ? 'Todo Created !' : 'Todo Updated !');
         }
       },
       builder: (context, state) {
@@ -87,21 +87,34 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                       Divider(
                         height: height * 0.03,
                       ),
-                      const CustomDateAndTimePicker(),
+                      CustomDateAndTimePicker(todo: widget.todo,),
                     ],
                   ),
                 ),
                 floatingActionButton: FloatingActionButton.extended(
                   onPressed: () {
                     if (key.currentState!.validate()) {
-                      context.read<CreateTodoBloc>().add(
-                        CreateTodoEventOnCreate(
-                          title: _titlecontroller.text,
-                          description: _descriptioncontroller.text,
-                          toBeCompletedByDate: StaticDateTime.date,
-                          toBeCompletedByTime: StaticDateTime.time,
-                        ),
-                      );
+                      if(widget.todo != null){
+                        context.read<CreateTodoBloc>().add(
+                            CreateTodoEventOnUpdate(
+                              todo: widget.todo!.copyWith(
+                                title: _titlecontroller.text,
+                                description: _descriptioncontroller.text,
+                                toBeCompletedByDate: StaticDateTime.date,
+                                toBeCompletedByTime: StaticDateTime.time,
+                              ),
+                            ),
+                          );
+                      }else{
+                        context.read<CreateTodoBloc>().add(
+                            CreateTodoEventOnCreate(
+                              title: _titlecontroller.text,
+                              description: _descriptioncontroller.text,
+                              toBeCompletedByDate: StaticDateTime.date,
+                              toBeCompletedByTime: StaticDateTime.time,
+                            ),
+                          );
+                      }
                       context.read<AllTodosBloc>().add(AllTodosEventFetch());
                     }
                   },

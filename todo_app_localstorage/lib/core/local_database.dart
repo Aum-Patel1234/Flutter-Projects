@@ -22,7 +22,17 @@ class LocalDatabase {
       databasePath,
       version: 1,
       onCreate: (db, version) async {
-        await db.execute('CREATE TABLE $tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT, isCompleted INTEGER NOT NULL, deletedAt INTEGER, createdAt INTEGER NOT NULL, updatedAt INTEGER, completedAt INTEGER, toBeCompletedByDate TEXT NOT NULL,toBeCompletedByTime TEXT NOT NULL)');
+        await db.execute('''CREATE TABLE $tableName (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            description TEXT,
+            isCompleted INTEGER NOT NULL, 
+            deletedAt INTEGER, 
+            createdAt INTEGER NOT NULL,
+            updatedAt INTEGER, 
+            completedAt INTEGER,
+            toBeCompletedByDate INTEGER NOT NULL,
+            toBeCompletedByTime TEXT NOT NULL)''');
         log('database created - $db');
       },
     );

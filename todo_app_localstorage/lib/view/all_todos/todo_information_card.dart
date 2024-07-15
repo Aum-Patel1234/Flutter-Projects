@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app_localstorage/bloc/create_todo/create_todo_bloc.dart';
+import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_bloc.dart';
 import 'package:todo_app_localstorage/bloc/date_bloc/date_bloc.dart';
 import 'package:todo_app_localstorage/model/todo_model.dart';
 import 'package:todo_app_localstorage/view/create_todo/create_todo_screen.dart';
@@ -129,20 +129,20 @@ class TodoInformationCard extends StatelessWidget {
                 ),
                 child: IconButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => MultiBlocProvider(
-                    //       providers: [
-                    //         BlocProvider(create: (context) => CreateTodoBloc(),), update implemntation
-                    //         BlocProvider(create: (context) => DateBloc(),),
-                    //       ],
-                    //       child: CreateTodoScreen(
-                    //         todo: todo,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider(create: (context) => CreateTodoBloc(),), // update implemntation
+                            BlocProvider(create: (context) => DateBloc(),),
+                          ],
+                          child: CreateTodoScreen(
+                            todo: todo,
+                          ),
+                        ),
+                      ),
+                    );
                   },
                   icon: const Icon(
                     Icons.edit,

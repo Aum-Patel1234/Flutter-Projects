@@ -22,9 +22,18 @@ class TodoLocalDatabase {
   }
 
   Future<List<TodoModel>> getAllTodos() async {
-     final response = await _localDatabase.database.rawQuery(
+    final response = await _localDatabase.database.rawQuery(
       'SELECT * FROM $_tableName'
     );
     return response.map((map) => TodoModel.fromMap(map)).toList(); 
+  }
+
+  Future<void> updateTodo(TodoModel todo,) async {
+    await _localDatabase.database.update(
+      _tableName,
+      todo.toMap(),
+      where: 'id = ?',
+      whereArgs: [todo.id],
+    );
   }
 }
