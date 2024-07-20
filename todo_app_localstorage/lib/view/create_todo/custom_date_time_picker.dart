@@ -25,7 +25,7 @@ class CustomDateAndTimePicker extends StatelessWidget {
           buildCard(
             context,
             onPressed: () {
-              datePickerFuntion(context);
+              datePickerFuntion(context,initialDate: todo?.toBeCompletedByDate);
               StaticDateTime.date = state.selectedDate;
             },
             child: Text(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_event.dart';
-import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_bloc.dart';
+import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_bloc.dart';
 import 'package:todo_app_localstorage/bloc/date_bloc/date_bloc.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_bloc.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_event.dart';
@@ -11,6 +11,7 @@ import 'package:todo_app_localstorage/view/all_todos/all_todos_body.dart';
 import 'package:todo_app_localstorage/view/create_todo/create_todo_screen.dart';
 import 'package:todo_app_localstorage/view/deleted_todos/deleted_todos_body.dart';
 import 'package:todo_app_localstorage/view/statistics/todos_stats_body.dart';
+import 'package:todo_app_localstorage/widgets/todo_filter_popup_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,21 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todos App'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.filter_list,
-              size: 28,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.more_vert_rounded,
-              size: 28,
-            ),
-          ),
+        actions: const[
+          TodoFileterPopUpMenu(),
         ],
       ),
       body: _buildBody(),
@@ -120,10 +108,13 @@ class _HomeScreenState extends State<HomeScreen> {
           context.read<HomeScreenBloc>().add(HomeScreenEventChangeScreen(index: value));
         },
         controller: _pageController,
-        children: const [
-          AllTodosBody(),
-          TodosStatsBody(),
-          DeletedTodosBody(),
+        children: [
+          BlocProvider(
+            create: (context) => CreateTodoBloc(),
+            child: const AllTodosBody(),
+          ),
+          const TodosStatsBody(),
+          const DeletedTodosBody(),
         ],
       );
     });
@@ -135,3 +126,4 @@ class _HomeScreenState extends State<HomeScreen> {
     _pageController.dispose();
   }
 }
+

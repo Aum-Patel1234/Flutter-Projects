@@ -36,4 +36,11 @@ class TodoLocalDatabase {
       whereArgs: [todo.id],
     );
   }
+  Future<void> deleteTodo(TodoModel todo,) async {
+    await _localDatabase.database.delete(
+      _tableName,
+      where: 'id = ?',
+      whereArgs: [todo.id],
+    );
+  }
 }

@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_event.dart';
-import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_bloc.dart';
-import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_event.dart';
-import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_state.dart';
+import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_bloc.dart';
+import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_event.dart';
+import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_state.dart';
 import 'package:todo_app_localstorage/model/todo_model.dart';
 import 'package:todo_app_localstorage/view/create_todo/custom_date_time_picker.dart';
 import 'package:todo_app_localstorage/view/create_todo/custom_textfield.dart';
@@ -29,6 +31,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   void initState() {
     super.initState();
     if (widget.todo != null) {
+      log('here');
       _titlecontroller.text = widget.todo!.title;
       _descriptioncontroller.text = widget.todo!.description ?? '';
       StaticDateTime.date = widget.todo!.toBeCompletedByDate;
@@ -95,6 +98,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                   onPressed: () {
                     if (key.currentState!.validate()) {
                       if(widget.todo != null){
+                        log(StaticDateTime.time.toString());
                         context.read<CreateTodoBloc>().add(
                             CreateTodoEventOnUpdate(
                               todo: widget.todo!.copyWith(

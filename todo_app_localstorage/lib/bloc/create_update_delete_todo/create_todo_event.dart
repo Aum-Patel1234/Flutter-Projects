@@ -13,7 +13,14 @@ class CreateTodoEventOnCreate extends CreateTodoEvent{
 } 
 
 class CreateTodoEventOnUpdate extends CreateTodoEvent{
-  CreateTodoEventOnUpdate({required this.todo});
+  CreateTodoEventOnUpdate({required this.todo,this.isCompleted,this.completedAt});
+
+  final TodoModel todo;
+  final bool? isCompleted;
+  final DateTime? completedAt;
+} 
+class CreateTodoEventOnDelete extends CreateTodoEvent{
+  CreateTodoEventOnDelete({required this.todo});
 
   final TodoModel todo;
 } 

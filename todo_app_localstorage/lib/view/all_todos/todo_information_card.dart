@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app_localstorage/bloc/create_update_todo/create_todo_bloc.dart';
+import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_bloc.dart';
+import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_event.dart';
+import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_bloc.dart';
+import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_event.dart';
 import 'package:todo_app_localstorage/bloc/date_bloc/date_bloc.dart';
 import 'package:todo_app_localstorage/model/todo_model.dart';
 import 'package:todo_app_localstorage/view/create_todo/create_todo_screen.dart';
@@ -95,14 +98,14 @@ class TodoInformationCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (todo.completedAt != null) const SizedBox(height: 16),
-                if (todo.completedAt != null)
+                if (todo.isCompleted) const SizedBox(height: 16),
+                if (todo.isCompleted)
                   Row(
                     children: [
                       const Icon(Icons.check_circle, color: Colors.green),
                       const SizedBox(width: 8),
                       const Text(
-                        'Completed At:',
+                        'Completed At Date:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -110,7 +113,29 @@ class TodoInformationCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        todo.completedAt.toString(),
+                        todo.completedAt!.toLocal().toString().split(' ')[0],
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                if (todo.isCompleted) const SizedBox(height: 16),
+                if (todo.isCompleted)
+                  Row(
+                    children: [
+                      const Icon(Icons.check_circle, color: Colors.green),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'Completed At Time:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        todo.completedAt!.toLocal().toString().split(' ')[1].split('.')[0],
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -146,6 +171,26 @@ class TodoInformationCard extends StatelessWidget {
                   },
                   icon: const Icon(
                     Icons.edit,
+                  ),
+                  splashColor: Colors.lightBlue,
+                ),
+              ),
+            ),
+            Positioned(
+              right: 0,
+              top: 0,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.blueAccent,
+                  shape: BoxShape.circle,
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    context.read<CreateTodoBloc>().add(CreateTodoEventOnDelete(todo: todo));
+                    context.read<AllTodosBloc>().add(AllTodosEventFetch());
+                  },
+                  icon: const Icon(
+                    Icons.delete,
                   ),
                   splashColor: Colors.lightBlue,
                 ),
