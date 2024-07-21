@@ -1,5 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_bloc.dart';
+import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_event.dart';
+import 'package:todo_app_localstorage/widgets/enums.dart';
 
 class TodoFileterPopUpMenu extends StatelessWidget {
   const TodoFileterPopUpMenu({
@@ -8,38 +11,26 @@ class TodoFileterPopUpMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
+    return PopupMenuButton<TodoFilter>(
+      onSelected: (TodoFilter filter) {
+        context.read<AllTodosBloc>().add(AllTodosEventFilter(todoFilter: filter));
+      },
       itemBuilder: (context) {
         return <PopupMenuItem<TodoFilter>>[
-          PopupMenuItem<TodoFilter>(
+          const PopupMenuItem<TodoFilter>(
             value: TodoFilter.all,
-            child: const Text('All Todos'),
-            onTap: (){
-
-            },
+            child: Text('All Todos'),
           ),
-          PopupMenuItem<TodoFilter>(
+          const PopupMenuItem<TodoFilter>(
             value: TodoFilter.completed,
-            child: const Text('Completed'),
-            onTap: (){
-
-            },
+            child: Text('Completed'),
           ),
-          PopupMenuItem<TodoFilter>(
+          const PopupMenuItem<TodoFilter>(
             value: TodoFilter.incomplete,
-            child: const Text('Not Completed'),
-            onTap: (){
-
-            },
+            child: Text('Not Completed'),
           ),
         ];
       },
     );
   }
-}
-
-enum TodoFilter{
-  all,
-  completed,
-  incomplete;
 }
