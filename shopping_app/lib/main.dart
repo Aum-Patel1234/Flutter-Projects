@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stocks_app/bloc/FavouritesCubit/favourites_cubit.dart';
 import 'package:stocks_app/bloc/ProductBloc/product_bloc.dart';
 import 'package:stocks_app/bloc/ProductCategoryBloc/category_bloc.dart';
 import 'package:stocks_app/view/user_information.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ProductBloc(),),
         BlocProvider(create: (context) => CategoryBloc(),),
+        BlocProvider(create: (context) => FavouritesCubit(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

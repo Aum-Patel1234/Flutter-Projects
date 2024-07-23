@@ -29,11 +29,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         }
       }
       log(map.toString());
-      emit(ProductStateLoadedState(categoryListModel: categoriesList ,data: map));
+      emit(ProductStateLoadedState(categoryListModel: categoriesList ,data: map,));
     } else {
       emit(ProductStateErrorState());
     }
   }
-
-
 }

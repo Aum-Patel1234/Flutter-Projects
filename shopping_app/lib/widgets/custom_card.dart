@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stocks_app/bloc/FavouritesCubit/favourites_cubit.dart';
 import 'package:stocks_app/bloc/ProductBloc/product_state.dart';
 import 'package:stocks_app/model/products_model.dart';
 import 'package:stocks_app/view/product_screens/product_information.dart';
-
 import '../bloc/ProductBloc/product_bloc.dart';
 
 class CustomCard extends StatelessWidget {
@@ -25,8 +25,7 @@ class CustomCard extends StatelessWidget {
           child: Center(
             child: SizedBox(
               width: cardWidth,
-              child: Card.filled(
-                color: Colors.transparent,
+              child: Card(
                 child: Stack(
                   children: [
                     Column(
@@ -38,15 +37,17 @@ class CustomCard extends StatelessWidget {
                             child: Image(
                               image: NetworkImage(product.thumbnail),
                               fit: BoxFit.contain,
-                              loadingBuilder: (context, child, loadingProgress) {
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
                                 if (loadingProgress == null) {
                                   return child;
                                 } else {
                                   return Center(
                                     child: CircularProgressIndicator(
-                                      value: loadingProgress.expectedTotalBytes != null
-                                          ? loadingProgress.cumulativeBytesLoaded /loadingProgress.expectedTotalBytes!
-                                          : null,
+                                      value:
+                                          loadingProgress.expectedTotalBytes != null
+                                              ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                              : null,
                                     ),
                                   );
                                 }
@@ -70,12 +71,14 @@ class CustomCard extends StatelessWidget {
                                     Expanded(
                                       flex: 4,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.all(10.0),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   product.title,
@@ -86,7 +89,9 @@ class CustomCard extends StatelessWidget {
                                                           FontWeight.bold),
                                                 ),
                                                 Text(
-                                                  product.brand == 'null' ? '' : product.brand,
+                                                  product.brand == 'null'
+                                                      ? ''
+                                                      : product.brand,
                                                   style: const TextStyle(
                                                     fontSize: 14,
                                                   ),
@@ -97,24 +102,30 @@ class CustomCard extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                            color: Colors.black12,
-                                            shape: BoxShape.circle),
-                                        child: Center(
-                                          child: IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.favorite_outline),
+                                    BlocBuilder<FavouritesCubit, Favourites>(
+                                      builder: (context, state) {
+                                        return Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+                                                color: Colors.transparent,
+                                                shape: BoxShape.circle
+                                            ),
+                                            child: Center(
+                                              child: IconButton(
+                                                onPressed: () => context.read<FavouritesCubit>().addRemoveFavourites(product),
+                                                icon: state.products.contains(product) ? const Icon(Icons.favorite_rounded) : const Icon(Icons.favorite_outline),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
+                                        );
+                                      },
                                     ),
                                   ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 0, 0),
                                   child: Text(
                                     '\$ ${product.price.toString()}',
                                     style: const TextStyle(
@@ -136,15 +147,17 @@ class CustomCard extends StatelessWidget {
                           maxWidth: cardWidth / 2,
                         ),
                         child: TextButton(
-                          style: const ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll(
-                              Color(0xFFF58686),
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(
+                              const Color(0xFFF58686),
                             ),
                           ),
                           onPressed: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => ProductInformation(product: product)));
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProductInformation(product: product)));
                           },
                           child: const Text(
                             'Buy Now',

@@ -29,16 +29,6 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () {},
             icon: const Icon(
-              Icons.search,
-              size: 30,
-            ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
               Icons.shopping_cart,
               size: 30,
             ),

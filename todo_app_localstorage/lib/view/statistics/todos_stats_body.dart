@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,7 @@ class TodosStatsBody extends StatefulWidget {
 class _TodosStatsBodyState extends State<TodosStatsBody> {
   final double padding = 20;
   int _touchedIndex = -1;
+  bool _isEmpty = true;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,12 @@ class _TodosStatsBodyState extends State<TodosStatsBody> {
                       builder: (context, state) {
                         int completed = state.todos.where((todo) => todo.isCompleted).toList().length;
                         int total = state.todos.length;
+                        _isEmpty = total == 0;
+
+                        if (_isEmpty) {
+                          log(_isEmpty.toString());
+                          return const Center(child: Text('Add a Todo'));
+                        }
 
                         return PieChart(
                           PieChartData(
@@ -55,18 +64,24 @@ class _TodosStatsBodyState extends State<TodosStatsBody> {
                             centerSpaceRadius: 100,
                             sections: [
                               PieChartSectionData(
-                                value: (completed/total).toDouble(),
+                                value: (completed / total).toDouble(),
                                 title: _touchedIndex == 0 ? 'Completed' : '',
                                 color: Colors.green,
                                 radius: _touchedIndex == 0 ? 60 : 50,
-                                titleStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),
+                                titleStyle: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               PieChartSectionData(
-                                value: (1 - (completed/total)).toDouble(),
+                                value: (1 - (completed / total)).toDouble(),
                                 title: _touchedIndex == 1 ? 'Not Completed' : '',
                                 color: Colors.red,
                                 radius: _touchedIndex == 1 ? 60 : 50,
-                                titleStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),
+                                titleStyle: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),
@@ -79,14 +94,15 @@ class _TodosStatsBodyState extends State<TodosStatsBody> {
             ),
           ),
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            indicator(color: Colors.green, tag: 'Completed'),
-            indicator(color: Colors.red, tag: 'Not Completed'),
-          ],
-        )
+        if (_isEmpty)
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              indicator(color: Colors.green, tag: 'Completed'),
+              indicator(color: Colors.red, tag: 'Not Completed'),
+            ],
+          ),
       ],
     );
   }

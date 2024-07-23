@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stocks_app/bloc/ProductCategoryBloc/category_bloc.dart';
 import 'package:stocks_app/bloc/ProductCategoryBloc/category_state.dart';
 import 'package:stocks_app/model/products_model.dart';
-import 'package:stocks_app/widgets/custom_card.dart';
+import 'package:stocks_app/widgets/custom_gridview.dart';
 
 class ProductsBody extends StatefulWidget {
   const ProductsBody({super.key});
@@ -70,21 +70,7 @@ class _ProductsBodyState extends State<ProductsBody> {
                 ),
               ),
               Expanded(
-                child: GridView.builder(
-                  itemCount: products.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 0.75,
-                  ),
-                  itemBuilder: (context, index) {
-                    return CustomCard(
-                      cardWidth: 200,
-                      product: products.elementAt(index),
-                    );
-                  },
-                ),
+                child: CustromProductGridView(products: products),
               ),
             ],
           );
@@ -94,3 +80,4 @@ class _ProductsBodyState extends State<ProductsBody> {
     );
   }
 }
+

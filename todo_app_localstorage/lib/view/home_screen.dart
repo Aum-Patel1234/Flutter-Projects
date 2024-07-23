@@ -11,6 +11,7 @@ import 'package:todo_app_localstorage/view/all_todos/all_todos_body.dart';
 import 'package:todo_app_localstorage/view/create_todo/create_todo_screen.dart';
 import 'package:todo_app_localstorage/view/deleted_todos/deleted_todos_body.dart';
 import 'package:todo_app_localstorage/view/statistics/todos_stats_body.dart';
+import 'package:todo_app_localstorage/widgets/custom_search_delegate.dart';
 import 'package:todo_app_localstorage/widgets/todo_filter_popup_menu.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,8 +36,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todos App'),
-        actions: const[
-          TodoFileterPopUpMenu(),
+        actions: [
+          const TodoFileterPopUpMenu(),
+          IconButton(
+            onPressed: (){
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(),
+              );
+            },
+            icon: const Icon(Icons.search),
+          )
         ],
       ),
       body: _buildBody(),

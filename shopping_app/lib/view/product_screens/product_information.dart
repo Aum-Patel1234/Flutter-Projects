@@ -165,12 +165,10 @@ class ProductInformation extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        child: const Icon(
-          Icons.favorite,
-          size: 30,
-        ),
+        label: const Text('Buy',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+        backgroundColor: Colors.greenAccent,
       ),
     );
   }
