@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "906766358571",
+    "project_id": "chat-app-41b11",
+    "storage_bucket": "chat-app-41b11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906766358571:android:d0c9ad8403e2ed197f726e",
+        "android_client_info": {
+          "package_name": "com.aum.firebase_example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz5-yCtIbMXRxZVN2e3mmIs7ETTr7saKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
