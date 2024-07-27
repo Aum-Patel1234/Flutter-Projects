@@ -25,15 +25,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('Hello, ${widget.username}'),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.shopping_cart,
-              size: 30,
-            ),
-          ),
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //     onPressed: () {},
+        //     icon: const Icon(
+        //       Icons.shopping_cart,
+        //       size: 30,
+        //     ),
+        //   ),
+        // ],
       ),
       body: PageView(
         controller: _pageController,

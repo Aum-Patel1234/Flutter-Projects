@@ -11,6 +11,7 @@ class LocalDatabase {
   static final LocalDatabase _instance = LocalDatabase._internal();
 
   static const String tableName = 'Todos';
+  static const String deletedTableName = 'Deleted_Todos';
 
   late final Database database;
 
@@ -33,6 +34,19 @@ class LocalDatabase {
             completedAt INTEGER,
             toBeCompletedByDate INTEGER NOT NULL,
             toBeCompletedByTime TEXT NOT NULL)''');
+
+        await db.execute('''CREATE TABLE $deletedTableName (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            description TEXT,
+            isCompleted INTEGER NOT NULL, 
+            deletedAt INTEGER, 
+            createdAt INTEGER NOT NULL,
+            updatedAt INTEGER, 
+            completedAt INTEGER,
+            toBeCompletedByDate INTEGER NOT NULL,
+            toBeCompletedByTime TEXT NOT NULL)''');
+
         log('database created - $db');
       },
     );

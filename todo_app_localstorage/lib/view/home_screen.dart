@@ -4,6 +4,7 @@ import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_event.dart';
 import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_bloc.dart';
 import 'package:todo_app_localstorage/bloc/date_bloc/date_bloc.dart';
+import 'package:todo_app_localstorage/bloc/deleted_todos_bloc/deleted_todos_event.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_bloc.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_event.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_state.dart';
@@ -13,6 +14,8 @@ import 'package:todo_app_localstorage/view/deleted_todos/deleted_todos_body.dart
 import 'package:todo_app_localstorage/view/statistics/todos_stats_body.dart';
 import 'package:todo_app_localstorage/widgets/custom_search_delegate.dart';
 import 'package:todo_app_localstorage/widgets/todo_filter_popup_menu.dart';
+
+import '../bloc/deleted_todos_bloc/deleted_todos_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<AllTodosBloc>().add(AllTodosEventFetch());
+    context.read<DeletedTodosBloc>().add(DeletedTodosEventFetchTodos());
   }
 
   @override
@@ -124,7 +128,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const AllTodosBody(),
           ),
           const TodosStatsBody(),
-          const DeletedTodosBody(),
+          BlocProvider(
+            create: (context) => CreateTodoBloc(),
+            child: const DeletedTodosBody(),
+          ),
         ],
       );
     });

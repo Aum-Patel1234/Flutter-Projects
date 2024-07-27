@@ -5,6 +5,8 @@ import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_event.dart';
 import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_bloc.dart';
 import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_event.dart';
 import 'package:todo_app_localstorage/bloc/date_bloc/date_bloc.dart';
+import 'package:todo_app_localstorage/bloc/deleted_todos_bloc/deleted_todos_bloc.dart';
+import 'package:todo_app_localstorage/bloc/deleted_todos_bloc/deleted_todos_event.dart';
 import 'package:todo_app_localstorage/model/todo_model.dart';
 import 'package:todo_app_localstorage/view/create_todo/create_todo_screen.dart';
 
@@ -188,6 +190,7 @@ class TodoInformationCard extends StatelessWidget {
                   onPressed: () {
                     context.read<CreateTodoBloc>().add(CreateTodoEventOnDelete(todo: todo));
                     context.read<AllTodosBloc>().add(AllTodosEventFetch());
+                    context.read<DeletedTodosBloc>().add(DeletedTodosEventFetchTodos());
                   },
                   icon: const Icon(
                     Icons.delete,
