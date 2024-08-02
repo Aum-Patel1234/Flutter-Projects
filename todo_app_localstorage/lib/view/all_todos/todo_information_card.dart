@@ -189,8 +189,8 @@ class TodoInformationCard extends StatelessWidget {
                 child: IconButton(
                   onPressed: () {
                     context.read<CreateTodoBloc>().add(CreateTodoEventOnDelete(todo: todo));
-                    context.read<AllTodosBloc>().add(AllTodosEventFetch());
                     context.read<DeletedTodosBloc>().add(DeletedTodosEventFetchTodos());
+                    context.read<AllTodosBloc>().add(AllTodosEventFetch());
                   },
                   icon: const Icon(
                     Icons.delete,

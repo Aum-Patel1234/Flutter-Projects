@@ -3,15 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_bloc.dart';
 import 'package:todo_app_localstorage/bloc/all_todos_bloc/all_todos_event.dart';
 import 'package:todo_app_localstorage/bloc/create_update_delete_todo/create_todo_bloc.dart';
-import 'package:todo_app_localstorage/bloc/date_bloc/date_bloc.dart';
 import 'package:todo_app_localstorage/bloc/deleted_todos_bloc/deleted_todos_event.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_bloc.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_event.dart';
 import 'package:todo_app_localstorage/bloc/home_screen/home_screen_state.dart';
 import 'package:todo_app_localstorage/view/all_todos/all_todos_body.dart';
-import 'package:todo_app_localstorage/view/create_todo/create_todo_screen.dart';
 import 'package:todo_app_localstorage/view/deleted_todos/deleted_todos_body.dart';
 import 'package:todo_app_localstorage/view/statistics/todos_stats_body.dart';
+import 'package:todo_app_localstorage/widgets/custom_floating_action_button.dart';
 import 'package:todo_app_localstorage/widgets/custom_search_delegate.dart';
 import 'package:todo_app_localstorage/widgets/todo_filter_popup_menu.dart';
 
@@ -41,7 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Todos App'),
         actions: [
-          const TodoFileterPopUpMenu(),
           IconButton(
             onPressed: (){
               showSearch(
@@ -50,38 +48,13 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
             icon: const Icon(Icons.search),
-          )
+          ),
+          const TodoFileterPopUpMenu(),
         ],
       ),
       body: _buildBody(),
       bottomNavigationBar: _navigationBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context){
-                return MultiBlocProvider(
-                  providers: [
-                    BlocProvider.value(value: context.read<AllTodosBloc>()),
-                    BlocProvider(create:(context) => DateBloc(),),
-                    BlocProvider(create:(context) => CreateTodoBloc(),),
-                  ],
-                  child: const CreateTodoScreen(),
-                );
-              }
-            ),
-          );
-        },
-        backgroundColor: Colors.blueAccent,
-        shape: const CircleBorder(),
-        splashColor: Colors.lightBlueAccent,
-        child: const Icon(
-          Icons.add,
-          weight: 5,
-          size: 30,
-        ),
-      ),
+      floatingActionButton: const CustomFloatingActionButton(),
     );
   }
 
@@ -143,4 +116,3 @@ class _HomeScreenState extends State<HomeScreen> {
     _pageController.dispose();
   }
 }
-

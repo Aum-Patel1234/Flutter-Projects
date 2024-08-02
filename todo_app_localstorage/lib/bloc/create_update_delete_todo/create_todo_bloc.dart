@@ -47,10 +47,10 @@ class CreateTodoBloc extends Bloc<CreateTodoEvent, CreateTodoState> {
     // Emit loading state
     emit(state.copyWith(todoStatus: TodoStatus.loading));
 
-    await TodoLocalDatabase().insertIntoDeletedTodos(event.todo);
     await TodoLocalDatabase().deleteTodo(
       event.todo
     );
+    await TodoLocalDatabase().insertIntoDeletedTodos(event.todo);
 
     // Emit completed state
     emit(state.copyWith(todoStatus: TodoStatus.completed));

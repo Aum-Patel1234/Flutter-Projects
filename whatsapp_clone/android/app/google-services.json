@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160921869350",
+    "project_id": "flutter-chat-app-151e5",
+    "storage_bucket": "flutter-chat-app-151e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160921869350:android:db7d28691b8f893c0f5ae7",
+        "android_client_info": {
+          "package_name": "com.aum_patel_whatsapp_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsZbLkisj8BkSsrCS1HFQtSy71zrVQnik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,15 +14,20 @@ class DeletedTodosBloc extends Bloc<DeletedTodosEvent, DeletedTodosState> {
 
   FutureOr<void> _onDeletedTodosEventFetchTodos(DeletedTodosEventFetchTodos event, Emitter<DeletedTodosState> emit) async {
     // Emit loading state
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: false));
     
     final List<TodoModel> todos = await TodoLocalDatabase().getAllDeletedTodos();
     
     // Emit completed state with fetched todos
-    emit(state.copyWith(todos: todos, isLoading: false));
+    emit(state.copyWith(todos: todos));
   }
 
-  FutureOr<void> _onDeletedTodosEventDeleteTodos(DeletedTodosEventDeleteTodos event, Emitter<DeletedTodosState> emit) {
+  FutureOr<void> _onDeletedTodosEventDeleteTodos(DeletedTodosEventDeleteTodos event, Emitter<DeletedTodosState> emit) async{
     // Handle delete event if needed
+    emit(state.copyWith(isLoading: true));
+    
+    await TodoLocalDatabase().deleteFromDeletedTodos();
+    // Emit completed state with fetched todos
+    emit(state.copyWith(todos: [],isLoading: false));
   }
 }

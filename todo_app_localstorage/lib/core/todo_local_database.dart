@@ -64,11 +64,9 @@ class TodoLocalDatabase {
     );
     log('dddd - $id');
   }
-  Future<void> deleteFromDeletedTodos(TodoModel todo)async{
+  Future<void> deleteFromDeletedTodos()async{
     await _localDatabase.database.delete(
       _deletedtableName,
-      where: 'id = ?',
-      whereArgs: [todo.id],
     );
   }
   Future<List<TodoModel>> getAllDeletedTodos() async {
@@ -77,7 +75,6 @@ class TodoLocalDatabase {
       SELECT * FROM $_deletedtableName
       '''
     );
-    log(response.toString());
     return response.map((map) => TodoModel.fromMap(map)).toList(); 
   }
 }
