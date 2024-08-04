@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_event.dart';
-import 'package:whatsapp_clone/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_state.dart';
+import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_event.dart';
+import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_state.dart';
 
 class BottomNavigationBarBloc extends Bloc<BottomNavigationBarEvent,BottomNavigationBarState>{
   BottomNavigationBarBloc():super(BottomNavigationBarState(index: 0)){

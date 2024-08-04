@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+part of 'src/main_body.dart';
 
 class CallsBody extends StatelessWidget {
   const CallsBody({super.key});

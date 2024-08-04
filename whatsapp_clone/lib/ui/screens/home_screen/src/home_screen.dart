@@ -1,13 +1,14 @@
+library home_screen;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_bloc.dart';
-import 'package:whatsapp_clone/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_event.dart';
-import 'package:whatsapp_clone/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_state.dart';
-import 'package:whatsapp_clone/ui/view/all_chats_body.dart';
-import 'package:whatsapp_clone/ui/view/calls_body.dart';
-import 'package:whatsapp_clone/ui/view/communities_body.dart';
-import 'package:whatsapp_clone/ui/view/updates_body.dart';
-import 'package:whatsapp_clone/ui/widgets/custom_navigation_bar.dart';
+import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_bloc.dart';
+import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_event.dart';
+import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_state.dart';
+
+import '../body/src/main_body.dart';
+import '../home_screen_widgets/src/home_screen_widgets.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,6 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: CustomBottomNavigationBar(
         pagecontroller: _pageController,
       ),
+      floatingActionButton: BlocBuilder<BottomNavigationBarBloc, BottomNavigationBarState>(
+        builder: (context, state) {
+          return CustomFloatingActionButton(index: state.index,onPressed: (){},);
+        },
+      )
     );
   }
 
@@ -53,3 +59,5 @@ class _HomeScreenState extends State<HomeScreen> {
     _pageController.dispose();
   }
 }
+
+

@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+part of 'src/main_body.dart';
 
 class CommunitiesBody extends StatelessWidget {
   const CommunitiesBody({super.key});
