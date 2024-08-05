@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone/modules/authentication_module/auth_bloc/service/auth_firestore_servce.dart';
-import 'package:whatsapp_clone/modules/authentication_module/auth_bloc/service/auth_service.dart';
+import 'package:whatsapp_clone/modules/authentication_module/service/auth_firestore_servce.dart';
+import 'package:whatsapp_clone/modules/authentication_module/service/auth_service.dart';
 import 'package:whatsapp_clone/modules/authentication_module/model/user_model.dart';
 import 'package:whatsapp_clone/shared/show_snack_bar.dart';
 
@@ -53,10 +53,9 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
           username: r.user?.displayName,
         )
       ));
+      showCustomSnackBar(message: "Account Created Successfully!");
+      emit(AuthState(isLoading: false, isAuthenticated: true, user: _authService.currentUser)); // emit successfull state
     });
-    
-    showCustomSnackBar(message: "Account Created Successfully!");
-    emit(AuthState(isLoading: false, isAuthenticated: true, user: _authService.currentUser)); // emit successfull state
   }
 
   FutureOr<void> _onAuthEventLogin(AuthEventLogin event, Emitter<AuthState> emit) async{
@@ -66,9 +65,11 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
 
     response.fold(
       (l){
+        log(l);
         showCustomSnackBar(message: l);
         emit(state.copyWith(isLoading: false,isAuthenticated: false)); // emit unsuccessfull state
       }, (r){
+        log(r.toString());
         showCustomSnackBar(message: "Login Successful!");
         emit(state.copyWith(isLoading: false,isAuthenticated: true,user: _authService.currentUser));  // emit successfull state
       }

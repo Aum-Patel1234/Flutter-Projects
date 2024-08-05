@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone/modules/authentication_module/view/login_screen.dart';
 import 'shared/src/repo.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -57,11 +58,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Text('Already have an account?',style: Theme.of(context).textTheme.bodyLarge,),
                   const SizedBox(width: 5,),
                   TextButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginScreen()));
+                    },
                     child: const Text('Login',style: TextStyle(color: Colors.green,fontSize: 16),),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),

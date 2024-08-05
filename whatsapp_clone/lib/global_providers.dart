@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone/modules/authentication_module/auth_bloc/auth_bloc.dart';
+import 'package:whatsapp_clone/modules/authentication_module/bloc/auth_bloc.dart';
 
 class GlobalProviders extends StatelessWidget {
   const GlobalProviders({super.key, required this.child});

@@ -9,12 +9,12 @@ class AuthService{
   final FirebaseAuth _instance = FirebaseAuth.instance;
 
   Stream<bool> get isAuthenticated{
-    log(_instance.authStateChanges().toString());
+    log(_instance.authStateChanges().elementAt(1).toString());
     return _instance.authStateChanges().map((user) => user != null);
   }
 
   UserModel? get currentUser{
-    if(_instance.currentUser != null) return null;
+    if (_instance.currentUser == null) return null;
     return UserModel.fromFirebaseUser(_instance.currentUser!);
   }
 
@@ -22,8 +22,16 @@ class AuthService{
     try{
       final UserCredential userCredential = await _instance.createUserWithEmailAndPassword(email: email, password: password);
       return Right(userCredential);
-    }on FirebaseAuthException catch (e){
-      return Left(e.message ?? 'Something went wrong..');
+    }on FirebaseAuthException catch (e) {
+    // Log the error code and message for debugging
+      log('Error code: ${e.code}');
+      log('Error message: ${e.message}');
+      
+      return Left(e.message ?? 'An unexpected error occurred.');
+    } catch (e) {
+      // Catch any other exceptions
+      log('Unexpected error: $e');
+      return const Left('An unexpected error occurred.');
     }
   }
 

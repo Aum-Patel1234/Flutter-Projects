@@ -5,6 +5,7 @@ import 'package:whatsapp_clone/application.dart';
 import 'package:whatsapp_clone/firebase_options.dart';
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const Application());

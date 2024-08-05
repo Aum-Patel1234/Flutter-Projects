@@ -9,16 +9,20 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white, 
-        borderRadius: BorderRadius.circular(8)
-      ),
-      child: GestureDetector(
-        onTap: (){
-          context.read<AuthBloc>().add(AuthEventSignUp(username: emailcontroller.text.split('@')[0], email: emailcontroller.text, password: passwordcontroller.text));
-        },
+    return GestureDetector(
+      onTap: ()async{
+       if(text == 'Login'){
+        context.read<AuthBloc>().add(AuthEventLogin(email: emailcontroller.text, password: passwordcontroller.text));
+       }else{
+         context.read<AuthBloc>().add(AuthEventSignUp(username: emailcontroller.text.split('@')[0], email: emailcontroller.text, password: passwordcontroller.text));
+       }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white, 
+          borderRadius: BorderRadius.circular(8)
+        ),
         child: Center(
           child: Text(
             text,

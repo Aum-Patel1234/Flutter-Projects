@@ -22,6 +22,7 @@ class _CustomEmailPasswordTextFieldState extends State<CustomEmailPasswordTextFi
         Text('Email',style: Theme.of(context).textTheme.bodyLarge,),
         SizedBox(height: height*0.01,),
         TextField(
+          controller: widget.emailcontroller,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             hintText: 'Your Email',
@@ -43,6 +44,7 @@ class _CustomEmailPasswordTextFieldState extends State<CustomEmailPasswordTextFi
           children: [
             Expanded(
               child: TextField(
+                controller: widget.passwordcontroller,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: isVisible,
                 decoration: InputDecoration(

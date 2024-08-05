@@ -6,6 +6,7 @@ import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bloc/b
 import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_event.dart';
 import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_state.dart';
 
+import '../../settings_screen/settings_screen.dart';
 import '../body/src/main_body.dart';
 import '../home_screen_widgets/src/home_screen_widgets.dart';
 
@@ -25,6 +26,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('WhatsApp',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600),),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  child: const Text('Settings'),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                  },
+                ),
+              ];
+            },
+          )
+        ],
       ),
       body: BlocBuilder<BottomNavigationBarBloc, BottomNavigationBarState>(
         builder: (context, state) {
