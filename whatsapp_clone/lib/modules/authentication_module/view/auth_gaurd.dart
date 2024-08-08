@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone/modules/authentication_module/bloc/auth_bloc.dart';
-import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bloc/bottom_navigation_bar_bloc/bottom_navigation_bar_bloc.dart';
+import 'package:whatsapp_clone/ui/screens/home_screen/home_screen_widgets/bottom_navigation_bar_bloc/bloc/bottom_navigation_bar_bloc.dart';
 import 'package:whatsapp_clone/ui/screens/home_screen/src/home_screen.dart';
 import 'sign_up_screen.dart';
 
@@ -26,8 +26,10 @@ class _AuthGaurdState extends State<AuthGaurd> {
     return BlocBuilder<AuthBloc,AuthState>(
       builder: (context,state){
         if(state.isAuthenticated){
-          return BlocProvider(
-            create: (context) => BottomNavigationBarBloc(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => BottomNavigationBarBloc(),),
+            ],
             child: const HomeScreen(),
           );
         }

@@ -5,6 +5,10 @@ class AllChatsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('All Chats Screen'));
+    return const Column(
+      children: [
+        CustomSearchBar(),
+      ],
+    );
   }
 }

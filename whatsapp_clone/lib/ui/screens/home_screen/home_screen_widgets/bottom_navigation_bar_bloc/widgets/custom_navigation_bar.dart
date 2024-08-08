@@ -1,4 +1,4 @@
-part of '../home_screen_widgets/src/home_screen_widgets.dart';
+part of '../../src/home_screen_widgets.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({
