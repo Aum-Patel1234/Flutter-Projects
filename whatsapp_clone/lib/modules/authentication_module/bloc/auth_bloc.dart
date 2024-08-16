@@ -1,13 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone/modules/authentication_module/service/auth_firestore_servce.dart';
 import 'package:whatsapp_clone/modules/authentication_module/service/auth_service.dart';
-import 'package:whatsapp_clone/modules/authentication_module/model/user_model.dart';
-import 'package:whatsapp_clone/shared/show_snack_bar.dart';
+import 'package:whatsapp_clone/models/users_model/user_model.dart';
+import 'package:whatsapp_clone/modules/ui/shared/show_snack_bar.dart';
 
 part 'auth_state.dart';
 part 'auth_event.dart';
@@ -40,19 +39,19 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
 
     final response = await _authService.createUserwithUsernameEmailPassord(username: event.username, email: event.email, password: event.password);
     
-    log(response.toString());
-    
     response.fold((l) {
       showCustomSnackBar(message: l);
       emit(AuthState(isLoading: false, isAuthenticated: false)); // emit unsuccessfull state
     }, (r) {
-      add(AuthEventCreateUser(  
-        userModel: UserModel(
-          id: r.user?.uid ?? '',
-          email: r.user?.email,                 // added a new event to create user
-          username: r.user?.displayName,
-        )
-      ));
+      add(
+        AuthEventCreateUser(
+          userModel: UserModel(
+            id: r.user?.uid ?? '',
+            email: r.user?.email, // added a new event to create user
+            username: r.user?.displayName,
+          ),
+        ),
+      );
       showCustomSnackBar(message: "Account Created Successfully!");
       emit(AuthState(isLoading: false, isAuthenticated: true, user: _authService.currentUser)); // emit successfull state
     });
@@ -65,11 +64,9 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
 
     response.fold(
       (l){
-        log(l);
         showCustomSnackBar(message: l);
         emit(state.copyWith(isLoading: false,isAuthenticated: false)); // emit unsuccessfull state
       }, (r){
-        log(r.toString());
         showCustomSnackBar(message: "Login Successful!");
         emit(state.copyWith(isLoading: false,isAuthenticated: true,user: _authService.currentUser));  // emit successfull state
       }

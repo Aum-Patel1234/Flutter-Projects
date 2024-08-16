@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:whatsapp_clone/modules/authentication_module/model/user_model.dart';
+import 'package:whatsapp_clone/models/users_model/user_model.dart';
 
 class AuthService{
   final FirebaseAuth _instance = FirebaseAuth.instance;
@@ -23,14 +23,8 @@ class AuthService{
       final UserCredential userCredential = await _instance.createUserWithEmailAndPassword(email: email, password: password);
       return Right(userCredential);
     }on FirebaseAuthException catch (e) {
-    // Log the error code and message for debugging
-      log('Error code: ${e.code}');
-      log('Error message: ${e.message}');
-      
       return Left(e.message ?? 'An unexpected error occurred.');
     } catch (e) {
-      // Catch any other exceptions
-      log('Unexpected error: $e');
       return const Left('An unexpected error occurred.');
     }
   }
