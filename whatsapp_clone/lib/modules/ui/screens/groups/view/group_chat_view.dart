@@ -5,6 +5,7 @@ import 'package:whatsapp_clone/modules/authentication_module/bloc/auth_bloc.dart
 import 'package:whatsapp_clone/modules/ui/screens/chat_screen/widgets/src/chat_screen_widgets.dart';
 import 'package:whatsapp_clone/modules/ui/screens/groups/service/groups_service.dart';
 import '../../../../../models/chat_model/message_model.dart';
+import '../../home_screen/home_screen_widgets/src/home_screen_widgets.dart';
 
 class GroupChatView extends StatelessWidget {
   GroupChatView({super.key, required this.group});
@@ -20,9 +21,10 @@ class GroupChatView extends StatelessWidget {
         title: Text(group.groupName), // Use the group name in the app bar title
         actions: [
           IconButton(
-            onPressed: ()async{
-              // final UserModel userModel = 
-              // _groupsService.addUser(user: userModel, group: group);
+            onPressed: () async {
+              showSearch(
+                  context: context,
+                  delegate: CustomSearchBar(groupModel: group));
             },
             icon: const Icon(Icons.add),
           )
@@ -44,15 +46,22 @@ class GroupChatView extends StatelessWidget {
 
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    itemCount: snapshot.data!.length,
+                  child: ListView.separated(
+                    itemCount: snapshot.data!.length, // edit this
                     reverse: true,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 16),
                     itemBuilder: (context, index) {
                       final message = snapshot.data![index];
-                  
+
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: MessageListTile(message: message,senderId: message.sentBy,),
+                        child: MessageListTile(
+                          message: message,
+                          senderId: message.sentBy,
+                          senderName: message.senderName,
+                        ),
                       );
                     },
                   ),
@@ -63,7 +72,8 @@ class GroupChatView extends StatelessWidget {
           SizedBox(
             height: 60, // Adjust height as needed
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
               ),
@@ -78,7 +88,17 @@ class GroupChatView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      onSubmitted: (value) => _sendGroupMessage(groupId: group.id,sentBy: context.read<AuthBloc>().state.user!.id),
+                      onSubmitted: (value) => _sendGroupMessage(
+                          groupId: group.id,
+                          sentBy: context.read<AuthBloc>().state.user!.id,
+                          senderName:
+                              context.read<AuthBloc>().state.user!.username ??
+                                  context
+                                      .read<AuthBloc>()
+                                      .state
+                                      .user!
+                                      .email!
+                                      .split('@')[0]),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -89,7 +109,17 @@ class GroupChatView extends StatelessWidget {
                     ),
                     child: IconButton(
                       icon: const Icon(Icons.send),
-                      onPressed: () => _sendGroupMessage(groupId: group.id,sentBy: context.read<AuthBloc>().state.user!.id),
+                      onPressed: () => _sendGroupMessage(
+                          groupId: group.id,
+                          sentBy: context.read<AuthBloc>().state.user!.id,
+                          senderName:
+                              context.read<AuthBloc>().state.user!.username ??
+                                  context
+                                      .read<AuthBloc>()
+                                      .state
+                                      .user!
+                                      .email!
+                                      .split('@')[0]),
                     ),
                   ),
                 ],
@@ -101,7 +131,10 @@ class GroupChatView extends StatelessWidget {
     );
   }
 
-  void _sendGroupMessage({required String groupId,required String sentBy}) {
+  void _sendGroupMessage(
+      {required String groupId,
+      required String sentBy,
+      required String senderName}) {
     if (_controller.text.isEmpty) {
       return;
     }
@@ -109,7 +142,8 @@ class GroupChatView extends StatelessWidget {
       id: 'id',
       text: _controller.text.trim(),
       sentAt: DateTime.now(),
-      sentBy: sentBy
+      sentBy: sentBy,
+      senderName: senderName,
     );
     _groupsService.sendMessage(groupId: groupId, message: message);
     _controller.clear();

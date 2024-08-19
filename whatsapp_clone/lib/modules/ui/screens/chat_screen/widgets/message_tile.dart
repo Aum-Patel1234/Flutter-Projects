@@ -5,11 +5,12 @@ class MessageListTile extends StatelessWidget {
     super.key,
     required this.message,
     this.senderId,
-    this.bloc,
+    this.bloc, required this.senderName,
   });
 
   final MessageModel message;
   final String? senderId; // sender is only required when it is a group chat
+  final String senderName;
   final ChatBloc? bloc;
 
   @override
@@ -43,7 +44,7 @@ class MessageListTile extends StatelessWidget {
             children: [
               if (senderId != null && !isSentByYou)
                 Text(
-                  senderId!,
+                  senderName,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Theme.of(context).colorScheme.tertiary,
                       ),

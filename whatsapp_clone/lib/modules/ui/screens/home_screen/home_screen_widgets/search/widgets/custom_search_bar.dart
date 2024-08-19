@@ -1,6 +1,10 @@
 part of '../../src/home_screen_widgets.dart';
 
 class CustomSearchBar extends SearchDelegate{
+  CustomSearchBar({super.searchFieldLabel, super.searchFieldStyle, super.searchFieldDecorationTheme, super.keyboardType, super.textInputAction, this.groupModel});
+  
+  final GroupModel? groupModel;
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -47,7 +51,12 @@ class CustomSearchBar extends SearchDelegate{
             return ListTile(
               title: Text(user.email!.split('@')[0]),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(sender: context.read<AuthBloc>().state.user!, receiver: user)));
+                if(groupModel != null){
+                  GroupsService service = GroupsService();
+                  service.addUser(user: user, group: groupModel!);
+                }else{
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(sender: context.read<AuthBloc>().state.user!, receiver: user)));
+                }
               },
             );
           },
@@ -69,7 +78,12 @@ class CustomSearchBar extends SearchDelegate{
             return ListTile(
               title: Text(user.email!.split('@')[0]),
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(sender: context.read<AuthBloc>().state.user!, receiver: user)));
+                if(groupModel != null){
+                  GroupsService service = GroupsService();
+                  service.addUser(user: user, group: groupModel!);  
+                }else{
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(sender: context.read<AuthBloc>().state.user!, receiver: user)));
+                }
               },
             );
           },

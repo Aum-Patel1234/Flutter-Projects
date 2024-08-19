@@ -43,7 +43,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         id: '',                               // the id will be auto generated handled in sendMessage function of service
         text: event.message,
         sentAt: DateTime.now(),
-        sentBy: sender.id);
+        sentBy: sender.id,
+        senderName: sender.username ?? sender.email!.split('@')[0],
+    );
     
     await _chatService.sendMessage(message: message, chatId: _chatId);
 
