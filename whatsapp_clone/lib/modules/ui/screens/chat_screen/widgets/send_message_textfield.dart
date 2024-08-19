@@ -1,7 +1,8 @@
 part of 'src/chat_screen_widgets.dart';
 
 class SendMessageTextfield extends StatefulWidget {
-  const SendMessageTextfield({super.key});
+  const SendMessageTextfield({super.key,});
+
 
   @override
   State<SendMessageTextfield> createState() => _SendMessageTextfieldState();
@@ -48,7 +49,7 @@ class _SendMessageTextfieldState extends State<SendMessageTextfield> {
             ),
             child: IconButton(
               icon: const Icon(Icons.send,),
-              onPressed: _sendMessage,
+              onPressed:_sendMessage,
             ),
           ),
         ],

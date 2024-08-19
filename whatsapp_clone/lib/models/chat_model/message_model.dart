@@ -6,7 +6,7 @@ class MessageModel {
     required this.text,
     this.type = MessageType.text,
     required this.sentAt,
-    required this.sentBy,
+    required this.sentBy,         // sentBy is the id of the person who sends it
   });
 
   factory MessageModel.fromMap(Map<String, dynamic> map) {
@@ -15,7 +15,7 @@ class MessageModel {
       text: map['text'] as String,
       type: _getMessageType(map['type'] as String),
       sentAt: DateTime.fromMillisecondsSinceEpoch(map['sentAt'] as int),
-      sentBy: map['sentBy'] as String,
+      sentBy: map['sentBy'] as String,             
     );
   }
 

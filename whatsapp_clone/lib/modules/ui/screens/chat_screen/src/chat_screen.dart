@@ -19,8 +19,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => context.read<ChatBloc>().add(const ChatEventInitialize()));
+    Future.microtask(() => context.read<ChatBloc>().add(const ChatEventInitialize()));
   }
 
   @override
@@ -31,8 +30,7 @@ class _ChatScreenState extends State<ChatScreen> {
           isLoading: state.isLoading,
           child: Scaffold(
             appBar: AppBar(
-              title: Text(state.receiver.username ??
-                  state.receiver.email!.split('@')[0]),
+              title: Text(state.receiver.username ?? state.receiver.email!.split('@')[0]),
             ),
             body: const Column(
               children: [

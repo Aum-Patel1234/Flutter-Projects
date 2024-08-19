@@ -2,9 +2,8 @@ library home_screen;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatsapp_clone/modules/ui/screens/groups/view/create_group_screen.dart';
 import 'package:whatsapp_clone/modules/ui/screens/home_screen/home_screen_widgets/bottom_navigation_bar_bloc/bloc/bottom_navigation_bar_bloc.dart';
-import 'package:whatsapp_clone/modules/ui/screens/home_screen/home_screen_widgets/bottom_navigation_bar_bloc/bloc/bottom_navigation_bar_event.dart';
-import 'package:whatsapp_clone/modules/ui/screens/home_screen/home_screen_widgets/bottom_navigation_bar_bloc/bloc/bottom_navigation_bar_state.dart';
 import '../../settings_screen/settings_screen.dart';
 import '../body/src/main_body.dart';
 import '../home_screen_widgets/src/home_screen_widgets.dart';
@@ -61,7 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: BlocBuilder<BottomNavigationBarBloc, BottomNavigationBarState>(
         builder: (context, state) {
-          return CustomFloatingActionButton(index: state.index,onPressed: (){},);
+          return CustomFloatingActionButton(index: state.index,onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateGroupScreen()));
+          },);
         },
       )
     );

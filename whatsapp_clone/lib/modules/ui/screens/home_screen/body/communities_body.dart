@@ -5,6 +5,6 @@ class CommunitiesBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Communities Screen'));
+    return GroupsListview();
   }
 }

@@ -15,7 +15,7 @@ class MessageListView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             separatorBuilder: (context, index) => const SizedBox(height: 16),
             itemBuilder: (context, index) {
-              return MessageListTile(message: state.messages.elementAt(index),);
+              return MessageListTile(message: state.messages.elementAt(index),bloc: context.read<ChatBloc>(),);
             },
           ),
         );

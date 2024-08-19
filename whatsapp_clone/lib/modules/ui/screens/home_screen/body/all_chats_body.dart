@@ -15,6 +15,9 @@ class AllChatsBody extends StatelessWidget {
               showSearch(context: context, delegate: CustomSearchBar());
             },
           ),
+        ),
+        Expanded(
+          child: RecentChatBody(),
         )
       ],
     );

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:whatsapp_clone/core/utils/constants.dart';
 import 'package:whatsapp_clone/models/chat_model/chat_model.dart';
 import 'package:whatsapp_clone/models/chat_model/message_model.dart';
+import 'package:whatsapp_clone/models/recent_chats_model/recent_chat_model.dart';
 import 'package:whatsapp_clone/models/users_model/user_model.dart';
 
 class FirestoreChatService{
@@ -18,6 +19,13 @@ class FirestoreChatService{
 
     final ChatModel chatModel = ChatModel(id: chatId, createdAt: DateTime.now(), createdBy: sender.username ?? sender.email!.split('@')[0]);
     await ref.set(chatModel.toMap());
+
+    if(sender.id == receiver.id){
+      await _addRecentChat(sender.id,chatId);     // so that if person chats with himself it does not duplicate
+    }else{
+      await _addRecentChat(sender.id,chatId);         // make a recent chat for both of them
+      await _addRecentChat(receiver.id,chatId);
+    }
 
     return chatId;
   }
@@ -52,5 +60,15 @@ class FirestoreChatService{
         .collection(FireStoreConstants.chatsCollectionPath)
         .doc(chatId)
         .collection(FireStoreConstants.messages);
+  }
+
+  // add a recent chat when creating a new one
+  _addRecentChat(String id,String chatId)async{
+    final RecentChatModel recentChatModel = RecentChatModel(chatId: chatId);
+    await _client
+        .collection(FireStoreConstants.recentCollectionPath)
+        .doc(id)
+        .collection(FireStoreConstants.messages)
+        .add(recentChatModel.toMap());
   }
 }
