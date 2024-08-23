@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone/models/users_model/user_model.dart';
 import 'package:whatsapp_clone/modules/ui/screens/chat_screen/service/firestore_chat_service.dart';
 import '../../../../../models/chat_model/message_model.dart';
+import '../service/firestore_storage_service.dart';
 
 part 'chat_state.dart';
 part 'chat_event.dart';
@@ -19,6 +20,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final UserModel receiver;
 
   final FirestoreChatService _chatService = FirestoreChatService();
+  final FirestoreStorageService _storageService = FirestoreStorageService(); 
   late final String _chatId;
 
   FutureOr<void> _onChatEventInitialize(ChatEventInitialize event, Emitter<ChatState> emit)async {
@@ -52,6 +54,22 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     emit(state.copyWith(isLoading: false));            // sent message
   }
 
-  FutureOr<void> _onChatEventSendImage(ChatEventSendImage event, Emitter<ChatState> emit) {
+  FutureOr<void> _onChatEventSendImage(ChatEventSendImage event, Emitter<ChatState> emit)async {
+    state.copyWith(isLoading: true);
+
+    final imageUrl = await _storageService.uploadFile(chatId: _chatId, filePath: event.path);
+
+     final MessageModel messageModel = MessageModel(
+      id: '',
+      text: imageUrl,
+      sentAt: DateTime.now(),
+      sentBy: sender.id,
+      type: MessageType.image,
+      senderName: sender.username ?? sender.email!.split('@')[0],
+    );
+
+    _chatService.sendMessage(message: messageModel, chatId: _chatId);
+
+    state.copyWith(isLoading: false);
   }
 }

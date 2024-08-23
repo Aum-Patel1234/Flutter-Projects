@@ -58,7 +58,13 @@ class MessageModel {
   }
 }
 
-MessageType _getMessageType(String map) {
-  if (map == MessageType.text.name) return MessageType.text;
-  return MessageType.image;
+MessageType _getMessageType(String typeString) {
+  switch (typeString) {
+    case 'text':
+      return MessageType.text;
+    case 'image':
+      return MessageType.image;
+    default:
+      throw ArgumentError('Unknown message type: $typeString');
+  }
 }

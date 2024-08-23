@@ -49,7 +49,16 @@ class MessageListTile extends StatelessWidget {
                         color: Theme.of(context).colorScheme.tertiary,
                       ),
                 ),
-              Text(
+              
+              message.type == MessageType.image 
+              ? AspectRatio(
+                aspectRatio: 1,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(message.text,fit: BoxFit.cover,),
+                ),
+              )
+              : Text(
                 message.text,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: isSentByYou
@@ -57,6 +66,7 @@ class MessageListTile extends StatelessWidget {
                           : Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

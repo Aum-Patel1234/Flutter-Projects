@@ -3,7 +3,6 @@ part of 'src/chat_screen_widgets.dart';
 class SendMessageTextfield extends StatefulWidget {
   const SendMessageTextfield({super.key,});
 
-
   @override
   State<SendMessageTextfield> createState() => _SendMessageTextfieldState();
 }
@@ -29,6 +28,7 @@ class _SendMessageTextfieldState extends State<SendMessageTextfield> {
       ),
       child: Row(
         children: [
+          const ImagePickerIcon(),
           Expanded(
             child: TextField(
               controller: _controller,

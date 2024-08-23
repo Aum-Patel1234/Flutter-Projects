@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:whatsapp_clone/models/chat_model/message_model.dart';
 import 'package:whatsapp_clone/modules/ui/screens/chat_screen/src/chat_page.dart';
 import 'package:whatsapp_clone/modules/ui/screens/home_screen/recent_chats/service/recent_chat_service.dart';
 
@@ -48,7 +49,7 @@ class RecentChatBody extends StatelessWidget {
                   },
                   leading: const CircleAvatar(),
                   title: Text(recentMessage.user.email!), // Adjust according to your model
-                  subtitle: Text(recentMessage.message.text),
+                  subtitle: (recentMessage.message.type == MessageType.image) ? const Text('🏝️  Image') : Text(recentMessage.message.text),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
