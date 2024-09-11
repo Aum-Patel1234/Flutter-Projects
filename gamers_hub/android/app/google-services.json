@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "795775827990",
+    "project_id": "gamers-hub-f259b",
+    "storage_bucket": "gamers-hub-f259b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795775827990:android:0e9277af47f39f4adc3537",
+        "android_client_info": {
+          "package_name": "com.aum.gamers_hub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWrsgoVPVvsyWZnYzrxAlB5eYPJhOhE6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

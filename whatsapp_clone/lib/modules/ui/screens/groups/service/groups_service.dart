@@ -10,7 +10,7 @@ class GroupsService{
 
   void createGroup({required UserModel createdBy,required String groupName,String? description}) async{
     final groupRef = _client.collection(FireStoreConstants.groupsCollectionPath).doc();     // get reference and id
-     final GroupModel groupModel = GroupModel(
+    final GroupModel groupModel = GroupModel(
       id: groupRef.id,
       groupName: groupName,
       createdBy: createdBy.username ?? createdBy.email!.split('@')[0],
