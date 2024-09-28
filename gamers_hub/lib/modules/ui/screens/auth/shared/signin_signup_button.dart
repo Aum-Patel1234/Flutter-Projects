@@ -22,7 +22,7 @@ class SigninSignupButton extends StatelessWidget {
             onPressed: () {},
             child: Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 16,
                 letterSpacing: 2,
