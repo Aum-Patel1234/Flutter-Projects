@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gamers_hub/modules/routes/route_manager.dart';
 import 'package:gamers_hub/modules/ui/screens/application.dart';
 import 'firebase_options.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      onGenerateRoute: RouteManager.generateRoutes,
       theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       home: const Application(),

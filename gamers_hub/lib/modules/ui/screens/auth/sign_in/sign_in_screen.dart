@@ -13,6 +13,8 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+  final GlobalKey<FormState> _emailKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _passwordKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class _SignInScreenState extends State<SignInScreen> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,    // important as it avoids the background to change when it enters something in textfield
       body: Stack(
         children: [
           const Image(
@@ -50,16 +53,22 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ),
                     ),
-                    CustomSigninSignupTextfield(
-                      controller: _emailcontroller,
-                      hintText: "Enter Your Email",
-                      header: "Email",
+                    Form(
+                      key: _emailKey,
+                      child: CustomSigninSignupTextfield(
+                        controller: _emailcontroller,
+                        hintText: "Enter Your Email",
+                        header: "Email",
+                      ),
                     ),
-                    CustomSigninSignupTextfield(
-                      controller: _passwordcontroller,
-                      hintText: "Enter Your Password",
-                      header: "Password",
-                      obscureText: true,
+                    Form(
+                      key: _passwordKey,
+                      child: CustomSigninSignupTextfield(
+                        controller: _passwordcontroller,
+                        hintText: "Enter Your Password",
+                        header: "Password",
+                        obscureText: true,
+                      ),
                     ),
                     const Align(
                       alignment: Alignment.centerRight,
@@ -67,7 +76,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         text: 'Forgot Password?',
                       ),
                     ),
-                    const SigninSignupButton(text: 'Sign In'),
+                   SigninSignupButton(text: 'Sign In',emailKey: _emailKey,passwordKey: _passwordKey,),
                     SizedBox(
                       height: height * 0.025,
                     ),
@@ -90,7 +99,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     const Align(
                       alignment: Alignment.centerRight,
-                      child: CustomUnderlinedButton(text: 'Create an Account'),
+                      child: CustomUnderlinedButton(text: 'Create an Account'),  
                     ),
                   ],
                 ),

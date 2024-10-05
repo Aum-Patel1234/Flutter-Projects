@@ -1,15 +1,11 @@
 part of 'auth_shared_widgets.dart';
 
-class SigninSignupButton extends StatelessWidget {
-  const SigninSignupButton({super.key, required this.text, required this.emailKey, required this.passwordKey});
-
-  final String text;
-  final GlobalKey<FormState> emailKey;
-  final GlobalKey<FormState> passwordKey;
+class SignInAsGuestButton extends StatelessWidget {
+  const SignInAsGuestButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, Config.paddingSixteen, 0, Config.paddingSixteen),
@@ -21,12 +17,10 @@ class SigninSignupButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(Config.borderRadius),
           ),
           child: TextButton(
-            onPressed: () {
-              
-            },
-            child: Text(
-              text,
-              style: const TextStyle(
+            onPressed: () {},
+            child: const Text(
+              "Sign In as a Guest",
+              style: TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 16,
                 letterSpacing: 2,

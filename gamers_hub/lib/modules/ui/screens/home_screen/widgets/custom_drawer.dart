@@ -12,7 +12,7 @@ class CustomDrawer extends StatelessWidget {
             accountName: Text('User'),
             accountEmail: Text('user@gmail.com'),
             decoration: BoxDecoration(
-              color: Colors.blueAccent,
+              color: Colors.purpleAccent,
             ),
           ),
           ListTile(

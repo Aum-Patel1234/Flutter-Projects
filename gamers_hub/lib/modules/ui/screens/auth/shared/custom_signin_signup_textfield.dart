@@ -17,8 +17,7 @@ class CustomSigninSignupTextfield extends StatefulWidget {
   State<CustomSigninSignupTextfield> createState() =>_CustomSigninSignupTextfieldState();
 }
 
-class _CustomSigninSignupTextfieldState
-    extends State<CustomSigninSignupTextfield> {
+class _CustomSigninSignupTextfieldState extends State<CustomSigninSignupTextfield> {
   @override
   Widget build(BuildContext context) {
     return Padding(
