@@ -11,6 +11,7 @@
 migrate_working_dir/
 .env
 lib/utils/api_key.dart
+lib/utils/config/encoder_decoder.dart
 
 # IntelliJ related
 *.iml

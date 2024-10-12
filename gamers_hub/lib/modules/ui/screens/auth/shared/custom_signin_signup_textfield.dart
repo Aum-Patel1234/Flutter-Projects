@@ -14,7 +14,7 @@ class CustomSigninSignupTextfield extends StatefulWidget {
   final String header;
 
   @override
-  State<CustomSigninSignupTextfield> createState() =>_CustomSigninSignupTextfieldState();
+  State<CustomSigninSignupTextfield> createState() => _CustomSigninSignupTextfieldState();
 }
 
 class _CustomSigninSignupTextfieldState extends State<CustomSigninSignupTextfield> {
@@ -29,16 +29,42 @@ class _CustomSigninSignupTextfieldState extends State<CustomSigninSignupTextfiel
             padding: const EdgeInsets.all(Config.paddingEight),
             child: Text(widget.header),
           ),
-          TextField(
-            controller: widget.controller,
-            obscureText: widget.obscureText,
-            decoration: InputDecoration(
-              hintText: widget.hintText,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(Config.borderRadius),
-              ),
-            ),
-          ),
+          widget.hintText == "Enter Your Password"
+              ? TextField(
+                  controller: widget.controller,
+                  obscureText: widget.obscureText,
+                  decoration: InputDecoration(
+                    hintText: widget.hintText,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(Config.borderRadius),
+                    ),
+                  ),
+                )
+              : TextFormField(
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email cannot be empty';
+                    }
+                    
+                    final RegExp emailRegex = RegExp(
+                      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                    );
+
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Please enter a valid email address';
+                    }
+
+                    return null; // Return null if the input is valid
+                  },
+                  controller: widget.controller,
+                  obscureText: widget.obscureText,
+                  decoration: InputDecoration(
+                    hintText: widget.hintText,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(Config.borderRadius),
+                    ),
+                  ),
+                ),
         ],
       ),
     );

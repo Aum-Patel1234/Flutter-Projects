@@ -14,7 +14,6 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
   final GlobalKey<FormState> _emailKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _passwordKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
           Center(
             child: Container(
-              height: width > height ? height * 0.75 : height*0.6,
+              height: width > height ? height * 0.8 : height*0.7,
               width: width * 0.9,
               decoration: BoxDecoration(
                 color: Colors.black26,
@@ -61,25 +60,30 @@ class _SignInScreenState extends State<SignInScreen> {
                         header: "Email",
                       ),
                     ),
-                    Form(
-                      key: _passwordKey,
-                      child: CustomSigninSignupTextfield(
-                        controller: _passwordcontroller,
-                        hintText: "Enter Your Password",
-                        header: "Password",
-                        obscureText: true,
-                      ),
+                    CustomSigninSignupTextfield(
+                      controller: _passwordcontroller,
+                      hintText: "Enter Your Password",
+                      header: "Password",
+                      obscureText: true,
                     ),
+
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+
                     const Align(
                       alignment: Alignment.centerRight,
                       child: CustomUnderlinedButton(
                         text: 'Forgot Password?',
                       ),
                     ),
-                   SigninSignupButton(text: 'Sign In',emailKey: _emailKey,passwordKey: _passwordKey,),
+
+                    SigninSignupButton(text: 'Sign In',emailKey: _emailKey,emailcontroller: _emailcontroller,passwordcontroller: _passwordcontroller,),
+                    
                     SizedBox(
                       height: height * 0.025,
                     ),
+
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -99,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     const Align(
                       alignment: Alignment.centerRight,
-                      child: CustomUnderlinedButton(text: 'Create an Account'),  
+                      child: CustomUnderlinedButton(text: 'Create a New Account'),  
                     ),
                   ],
                 ),

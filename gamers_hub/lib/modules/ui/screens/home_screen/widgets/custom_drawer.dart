@@ -32,9 +32,11 @@ class CustomDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {},
+            leading: const Icon(Icons.logout),
+            title: const Text('Sign out'),
+            onTap: () {
+              context.read<AuthBloc>().add(AuthEventLogout());
+            },
           ),
           ListTile(
             leading: const Icon(Icons.help),

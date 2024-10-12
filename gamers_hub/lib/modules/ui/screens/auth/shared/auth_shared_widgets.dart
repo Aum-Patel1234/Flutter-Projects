@@ -1,6 +1,8 @@
 library auth_shared_widgets;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gamers_hub/modules/ui/screens/auth/bloc/auth_bloc.dart';
 import 'package:gamers_hub/modules/ui/screens/auth/sign_up/sign_up_screen.dart';
 import '../../../../../utils/config/config.dart';
 

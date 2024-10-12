@@ -1,11 +1,17 @@
 part of 'auth_shared_widgets.dart';
 
 class SigninSignupButton extends StatelessWidget {
-  const SigninSignupButton({super.key, required this.text, required this.emailKey, required this.passwordKey});
+  const SigninSignupButton(
+      {super.key,
+      required this.text,
+      required this.emailKey,
+      required this.emailcontroller,
+      required this.passwordcontroller});
 
   final String text;
   final GlobalKey<FormState> emailKey;
-  final GlobalKey<FormState> passwordKey;
+  final TextEditingController emailcontroller;
+  final TextEditingController passwordcontroller;
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +23,25 @@ class SigninSignupButton extends StatelessWidget {
         child: Container(
           width: width * 0.8,
           decoration: BoxDecoration(
-            color: const Color(0xFF43B27F),
+            color: const Color(0xFF28A745),
             borderRadius: BorderRadius.circular(Config.borderRadius),
           ),
           child: TextButton(
             onPressed: () {
-              
+              if (emailKey.currentState!.validate()) {
+                if (text == "Sign Up") {
+                  context.read<AuthBloc>().add(AuthEventSignUp(email: emailcontroller.text,password: passwordcontroller.text,));
+                } else {
+                  context.read<AuthBloc>().add(AuthEventSignIn(email: emailcontroller.text,password: passwordcontroller.text));
+                }
+              }
             },
             child: Text(
               text,
               style: const TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
                 letterSpacing: 2,
               ),
             ),

@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class UserModel {
   UserModel({
     required this.id,
@@ -15,7 +17,7 @@ class UserModel {
     this.achievements,
     this.recentlyPlayed,
     this.notificationsEnabled,
-    this.privacySettings,
+    this.isGuest = false,
   });
 
   final String id;
@@ -33,7 +35,7 @@ class UserModel {
   final List<String>? achievements; 
   final List<String>? recentlyPlayed; 
   final bool? notificationsEnabled; 
-  final Map<String, dynamic>? privacySettings; 
+  final bool isGuest;
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
@@ -52,7 +54,7 @@ class UserModel {
       achievements: List<String>.from(map['achievements'] ?? []),
       recentlyPlayed: List<String>.from(map['recentlyPlayed'] ?? []),
       notificationsEnabled: map['notificationsEnabled'] as bool?,
-      privacySettings: map['privacySettings'] as Map<String, dynamic>?,
+      isGuest: map['isGuest'] as bool,
     );
   }
 
@@ -87,14 +89,14 @@ class UserModel {
       achievements: achievements ?? this.achievements,
       recentlyPlayed: recentlyPlayed ?? this.recentlyPlayed,
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
-      privacySettings: privacySettings ?? this.privacySettings,
+      isGuest: isGuest,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'username': username,
+      'username': username ?? email.split("@")[0],
       'email': email,
       'profilePicture': profilePicture,
       'bio': bio,
@@ -108,27 +110,28 @@ class UserModel {
       'achievements': achievements,
       'recentlyPlayed': recentlyPlayed,
       'notificationsEnabled': notificationsEnabled,
-      'privacySettings': privacySettings,
+      'isGuest': isGuest,
     };
   }
-
-  // factory UserModel.fromFirebaseUser(User user) {
-  //   return UserModel(
-  //     id: user.uid,
-  //     username: user.displayName,
-  //     email: user.email,
-  //     profilePicture: user.photoURL,
-  //     bio: null, 
-  //     createdAt: DateTime.now(), 
-  //     favoriteGames: [],
-  //     preferredGenres: [],
-  //     friends: [],
-  //     followers: [],
-  //     following: [],
-  //     achievements: [],
-  //     recentlyPlayed: [],
-  //     notificationsEnabled: true, 
-  //     privacySettings: {}, 
-  //   );
-  // }
+  
+  factory UserModel.fromFirebaseUser(User user, {bool isGuest = false}) {
+    return UserModel(
+      id: user.uid,
+      username: user.displayName,
+      email: user.email ?? '',
+      profilePicture: user.photoURL,
+      bio: '',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      favoriteGames: [],
+      preferredGenres: [],
+      friends: [],
+      followers: [],
+      following: [],
+      achievements: [],
+      recentlyPlayed: [],
+      notificationsEnabled: true,
+      isGuest: isGuest,
+    );
+  }
 }

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gamers_hub/modules/ui/screens/application.dart';
 import 'package:gamers_hub/modules/ui/screens/auth/sign_in/sign_in_screen.dart';
-import 'package:gamers_hub/modules/ui/screens/home_screen/src/home_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../ui/screens/home_screen/bottom_navigation_bar/bloc/bottom_navigation_bloc.dart';
 
 class RouteManager {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -13,7 +9,7 @@ class RouteManager {
     switch (settings.name) {
       case '/':
         {
-          return _handleIntialRoute();
+          return MaterialPageRoute(builder: (context) => const Application(),);
         }
       case '/signIn':
         {
@@ -22,28 +18,6 @@ class RouteManager {
       default:
         return _errorRoute();
     }
-    // return _errorRoute();
-  }
-
-  static Route<MaterialPageRoute> _handleIntialRoute() {
-    return MaterialPageRoute(builder: (context) {
-      return FutureBuilder<SharedPreferences>(
-        future: SharedPreferences.getInstance(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
-          }
-          final prefs = snapshot.data;
-          if (prefs?.getString('email') == null) {
-            return const SignInScreen();
-          }
-          return BlocProvider(
-            create: (context) => BottomNavigationBloc(),
-            child: const HomeScreen(),
-          );
-        },
-      );
-    });
   }
 
   static Route<MaterialPageRoute> _errorRoute() {
