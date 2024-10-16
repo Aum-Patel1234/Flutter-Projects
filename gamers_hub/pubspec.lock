@@ -81,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
+  crypto:
+    dependency: transitive
+    description:
+      name: crypto
+      sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.6"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -565,6 +573,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
+  twitter_login:
+    dependency: "direct main"
+    description:
+      name: twitter_login
+      sha256: "31ff9db2e37eda878b876a4ce6d1525f51d34b6cd9de9aa185b07027a23ab95b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.4.2"
   typed_data:
     dependency: transitive
     description:

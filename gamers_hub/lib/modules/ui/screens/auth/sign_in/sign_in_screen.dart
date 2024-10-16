@@ -89,12 +89,16 @@ class _SignInScreenState extends State<SignInScreen> {
                       children: [
                         CompanySignInButton(
                           imageLink: 'assets/icons/google_icon.png',
+                          signInCompany: SignInCompany.google,
+
                         ),
                         CompanySignInButton(
                           imageLink: 'assets/icons/facebook.png',
+                          signInCompany: SignInCompany.facebook,
                         ),
                         CompanySignInButton(
                           imageLink: 'assets/icons/logo-black.png',
+                          signInCompany: SignInCompany.twitter,
                         ),
                       ],
                     ),

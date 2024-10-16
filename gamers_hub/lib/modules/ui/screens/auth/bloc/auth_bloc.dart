@@ -83,12 +83,78 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     await _authService.createUser(userModel: event.userModel);
   } 
 
-  FutureOr<void> _onAuthEventGoogleSignIn(AuthEventGoogleSignIn event, Emitter<AuthState> emit) {
+  FutureOr<void> _onAuthEventGoogleSignIn(AuthEventGoogleSignIn event, Emitter<AuthState> emit) async{
+    // emit(state.copyWith(isLoading: true));
+    final response = await _authService.googleSignIn();
+
+    response.fold(
+    (l){
+      showCustomSnackBar(message: l);
+      emit(state.copyWith(isLoading: false,isAuthenticated: false)); // emit unsuccessfull state 
+    },(r){
+      add(
+        AuthEventCreateUser(
+          userModel: UserModel(
+            id: r.user?.uid ?? '',
+            email: r.user!.email ?? '',
+            username: r.user?.displayName ?? r.user!.email!.split("@")[0],
+            profilePicture: r.user?.photoURL,
+            phoneNumber: r.user?.phoneNumber,
+          ),
+        ),
+      );
+      showCustomSnackBar(message: "Google Sign in Completed!");
+      emit(state.copyWith(isLoading: false, isAuthenticated: true, user: _authService.currentUser)); // emit successfull state
+    });
   }
 
-  FutureOr<void> _onAuthEventTwitterSignIn(AuthEventTwitterSignIn event, Emitter<AuthState> emit) {
+  FutureOr<void> _onAuthEventTwitterSignIn(AuthEventTwitterSignIn event, Emitter<AuthState> emit) async{
+    // emit(state.copyWith(isLoading: true));
+    final response = await _authService.signInWithTwitter();
+
+    response.fold(
+    (l){
+      showCustomSnackBar(message: l);
+      emit(state.copyWith(isLoading: false,isAuthenticated: false)); // emit unsuccessfull state 
+    },(r){
+      add(
+        AuthEventCreateUser(
+          userModel: UserModel(
+            id: r.user?.uid ?? '',
+            email: r.user!.email ?? '',
+            username: r.user?.displayName ?? r.user!.email!.split("@")[0],
+            profilePicture: r.user?.photoURL,
+            phoneNumber: r.user?.phoneNumber,
+          ),
+        ),
+      );
+      showCustomSnackBar(message: "Twitter Sign in Completed!");
+      emit(state.copyWith(isLoading: false, isAuthenticated: true, user: _authService.currentUser)); // emit successfull state
+    });
   }
 
-  FutureOr<void> _onAuthEventFacebookSignIn(AuthEventFacebookSignIn event, Emitter<AuthState> emit) {
+  FutureOr<void> _onAuthEventFacebookSignIn(AuthEventFacebookSignIn event, Emitter<AuthState> emit) async{
+    // emit(state.copyWith(isLoading: true));
+    final response = await _authService.signInWithFacebook();
+
+    response.fold(
+    (l){
+      showCustomSnackBar(message: l);
+      emit(state.copyWith(isLoading: false,isAuthenticated: false)); // emit unsuccessfull state 
+    },(r){
+      add(
+        AuthEventCreateUser(
+          userModel: UserModel(
+            id: r.user?.uid ?? '',
+            email: r.user!.email ?? '',
+            username: r.user?.displayName ?? r.user!.email!.split("@")[0],
+            profilePicture: r.user?.photoURL,
+            phoneNumber: r.user?.phoneNumber,
+          ),
+        ),
+      );
+      showCustomSnackBar(message: "Facebook Sign in Completed!");
+      emit(state.copyWith(isLoading: false, isAuthenticated: true, user: _authService.currentUser)); // emit successfull state
+    });
   }
 }

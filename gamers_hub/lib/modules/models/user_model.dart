@@ -5,6 +5,7 @@ class UserModel {
     required this.id,
     this.username,
     required this.email,
+    this.phoneNumber,
     this.profilePicture,
     this.bio,
     this.createdAt,
@@ -23,6 +24,7 @@ class UserModel {
   final String id;
   final String? username;
   final String email;
+  final String? phoneNumber;
   final String? profilePicture; 
   final String? bio; 
   final DateTime? createdAt;
@@ -41,6 +43,7 @@ class UserModel {
     return UserModel(
       id: map['id'] as String,
       email: map['email'] != null ? map['email'] as String : "", // handle null
+      phoneNumber: map['phoneNumber'] as String?,
       username: map['username'] != null ? map['username'] as String : map['email'].toString().split('@')[0],
       profilePicture: map['profilePicture'] as String?,
       bio: map['bio'] as String?,
@@ -98,6 +101,7 @@ class UserModel {
       'id': id,
       'username': username ?? email.split("@")[0],
       'email': email,
+      'phoneNumber': phoneNumber,
       'profilePicture': profilePicture,
       'bio': bio,
       'createdAt': createdAt?.toIso8601String(),
@@ -119,6 +123,7 @@ class UserModel {
       id: user.uid,
       username: user.displayName,
       email: user.email ?? '',
+      phoneNumber: user.phoneNumber,
       profilePicture: user.photoURL,
       bio: '',
       createdAt: DateTime.now(),

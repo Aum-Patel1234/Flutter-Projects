@@ -4,7 +4,7 @@ import 'package:gamers_hub/modules/ui/screens/auth/sign_in/sign_in_screen.dart';
 
 class RouteManager {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
-    final args = settings.arguments;
+    // final args = settings.arguments;
 
     switch (settings.name) {
       case '/':
