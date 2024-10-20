@@ -13,11 +13,15 @@ class SignInAsGuestButton extends StatelessWidget {
         child: Container(
           width: width * 0.8,
           decoration: BoxDecoration(
-            color: const Color(0xFF28A745),
+            color: const Color(ColorConfig.submitButtonGreen),
             borderRadius: BorderRadius.circular(Config.borderRadius),
           ),
           child: TextButton(
             onPressed: () {},
+            style: TextButton.styleFrom(
+              splashFactory: InkRipple.splashFactory,
+              overlayColor: Colors.white,
+            ),
             child: const Text(
               "Sign In as a Guest",
               style: TextStyle(

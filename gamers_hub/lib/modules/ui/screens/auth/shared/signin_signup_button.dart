@@ -23,8 +23,8 @@ class SigninSignupButton extends StatelessWidget {
         child: Container(
           width: width * 0.8,
           decoration: BoxDecoration(
-            color: const Color(0xFF28A745),
-            borderRadius: BorderRadius.circular(Config.borderRadius),
+            color: const Color(ColorConfig.submitButtonGreen),
+            borderRadius: BorderRadius.circular(Config.borderRadiusDeep),
           ),
           child: TextButton(
             onPressed: () {
@@ -36,9 +36,14 @@ class SigninSignupButton extends StatelessWidget {
                 }
               }
             },
+            style: TextButton.styleFrom(
+              splashFactory: InkRipple.splashFactory,
+              overlayColor: const Color(ColorConfig.submitButtonSplashGreen),
+            ),
             child: Text(
               text,
               style: const TextStyle(
+                color: Color(ColorConfig.colorWhite),
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,

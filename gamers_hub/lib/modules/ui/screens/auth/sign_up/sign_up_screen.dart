@@ -20,7 +20,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
 
     return BlocListener<AuthBloc,AuthState>(      
       listener: (context,state){
@@ -32,11 +31,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         resizeToAvoidBottomInset: false,    // important as it avoids the background to change when it enters something in textfield
         body: Stack(
           children: [
-            const Image(
-              image: AssetImage("assets/images/home-page-background.jpg"),
-              fit: BoxFit.fitHeight,
-              height: double.maxFinite,
-            ),
             Positioned(
               left: 10,
               top: 40,
@@ -48,25 +42,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
             Center(
-              child: Container(
-                height: width > height ? height * 0.75 : height * 0.6,
+              child: SizedBox(
                 width: width * 0.9,
-                decoration: BoxDecoration(
-                  color: Colors.black26,
-                  borderRadius: BorderRadius.circular(Config.borderRadius),
-                ),
                 child: Padding(
                   padding: const EdgeInsets.all(Config.paddingEight),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(Config.paddingEight),
+                        child: Image(
+                          width: 100,                                                     // constant width
+                          image: AssetImage("assets/images/logo.png"),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(Config.paddingSixteen),
                         child: Text(
-                          'Please Enter Your Account Details',
+                          'Create New Account',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -75,13 +72,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: CustomSigninSignupTextfield(
                           controller: _emailcontroller,
                           hintText: "Enter Your Email",
-                          header: "Email",
                         ),
                       ),
                       CustomSigninSignupTextfield(
                         controller: _passwordcontroller,
                         hintText: "Enter Your Password",
-                        header: "Password",
                         obscureText: true,
                       ),
       

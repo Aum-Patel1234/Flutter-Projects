@@ -27,12 +27,13 @@ class CompanySignInButton extends StatelessWidget {
         }
       },
       child: Container(
+        padding: const EdgeInsets.all(Config.paddingEight),
         margin: const EdgeInsets.all(Config.marginEight),
-        width: 50,
-        height: 50,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
+        width: 80,
+        height: 60,
+        decoration: BoxDecoration(
+          color: const Color(ColorConfig.textAreaColor),
+          borderRadius: BorderRadius.circular(Config.borderRadius),
         ),
         child: Center(
           child: Image.asset(imageLink,width: 25,height: 25,),
