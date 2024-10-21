@@ -44,7 +44,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     'Login to Your Account',
                     style: TextStyle(
                       fontSize: 26,
-                      wordSpacing: 4,
+                      wordSpacing: 2,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

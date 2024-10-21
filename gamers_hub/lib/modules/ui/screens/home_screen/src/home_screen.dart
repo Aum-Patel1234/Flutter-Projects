@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamers_hub/modules/ui/screens/home_screen/bottom_navigation_bar/bloc/bottom_navigation_bloc.dart';
 import 'package:gamers_hub/modules/ui/screens/home_screen/widgets/home_screen_widgets.dart';
 
+import '../appbar/home_screen_appbar.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,18 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const CustomDrawer(),
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-        actions: [
-          IconButton(
-            onPressed: (){
-              // debounce the search
-            },
-            icon: const Icon(Icons.search),
-          ),
-        ],
-      ),
+      // drawer: const CustomDrawer(),
+      appBar: const HomeScreenAppbar(),
       body: PageView(
         controller: _pageController,
         onPageChanged: (index){
