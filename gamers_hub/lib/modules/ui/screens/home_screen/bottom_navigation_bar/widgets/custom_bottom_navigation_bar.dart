@@ -19,36 +19,37 @@ class CustomNavigationBar extends StatelessWidget {
               topRight: Radius.circular(20),
             ),
           ),
-          child: BottomNavigationBar(
-            currentIndex: state.index,
-            // showSelectedLabels: true,
+          child: NavigationBar(
+            selectedIndex: state.index,
             backgroundColor: Colors.transparent,
-            selectedItemColor: const Color(ColorConfig.submitButtonGreen),
-            unselectedItemColor: Colors.white,
-            onTap: (int index){
+            onDestinationSelected: (int index) {
               context.read<BottomNavigationBloc>().add(BottomNavigationEventOnChanged(index: index));
               pageController.jumpToPage(index);
             },
-            items: const[
-              BottomNavigationBarItem(
+            destinations: const [
+              NavigationDestination(
                 icon: Icon(Icons.home_outlined),
-                activeIcon: Icon(Icons.home),
+                selectedIcon: Icon(Icons.home),
                 label: 'Home',
+                tooltip: 'Home',
               ),
-              BottomNavigationBarItem(
+              NavigationDestination(
                 icon: Icon(Icons.bookmark_outline),
-                activeIcon: Icon(Icons.bookmark,),
+                selectedIcon: Icon(Icons.bookmark),
                 label: 'Wishlist',
+                tooltip: 'Wishlist',
               ),
-              BottomNavigationBarItem(
+              NavigationDestination(
                 icon: Icon(Icons.shopping_bag_outlined),
-                activeIcon: Icon(Icons.shopping_bag),
+                selectedIcon: Icon(Icons.shopping_bag),
                 label: 'My Games',
+                tooltip: 'My Games',
               ),
-              BottomNavigationBarItem(
+              NavigationDestination(
                 icon: Icon(Icons.settings_outlined),
-                activeIcon: Icon(Icons.settings),
+                selectedIcon: Icon(Icons.settings),
                 label: 'Settings',
+                tooltip: 'Settings',
               ),
             ],
           ),
