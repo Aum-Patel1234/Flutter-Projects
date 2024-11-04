@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamers_hub/modules/service/auth_service.dart';
 import 'package:gamers_hub/modules/ui/shared/show_snack_bar.dart';
 
-import '../../../../models/user_model.dart';
+import '../../../../models/user/user_model.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

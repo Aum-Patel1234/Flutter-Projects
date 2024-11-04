@@ -7,7 +7,7 @@ import 'package:gamers_hub/utils/config/firebase_collections.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
-import '../models/user_model.dart';
+import '../models/user/user_model.dart';
 
 class AuthService{
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
