@@ -211,7 +211,7 @@ class SettingsBody extends StatelessWidget {
           ),
           title: const Text('Logout'),
           onTap: () {
-
+            context.read<AuthBloc>().add(AuthEventLogout());
           },
           
         ),

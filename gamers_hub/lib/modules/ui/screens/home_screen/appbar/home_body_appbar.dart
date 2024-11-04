@@ -43,7 +43,7 @@ class HomeBodyAppbar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(CupertinoIcons.search),
         ),
         IconButton(
-          onPressed: () {
+          onPressed: () async{
             // debounce the search
           },
           icon: const Icon(Icons.notifications),
