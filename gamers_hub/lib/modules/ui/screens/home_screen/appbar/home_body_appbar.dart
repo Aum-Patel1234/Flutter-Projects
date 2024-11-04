@@ -6,7 +6,7 @@ class HomeBodyAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading:  IconButton(
+      leading: IconButton(
         onPressed: (){},
         icon: ClipOval( 
           child: Image.network(
@@ -35,6 +35,18 @@ class HomeBodyAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
+      bottom: const TabBar(
+        isScrollable: true,
+        labelColor: Colors.green,
+        indicatorColor: Colors.green,
+        tabs: [
+          Tab(text: 'For You'),
+          Tab(text: 'Top Charts'),
+          Tab(text: 'Events'),
+          Tab(text: 'Premium'),
+          Tab(text: 'Category'),
+        ],
+      ),
       actions: [
         IconButton(
           onPressed: () {
@@ -53,5 +65,5 @@ class HomeBodyAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(50+kToolbarHeight);
 }

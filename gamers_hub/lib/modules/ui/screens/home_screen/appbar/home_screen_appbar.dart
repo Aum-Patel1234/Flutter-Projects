@@ -11,7 +11,9 @@ part 'settings_appbar.dart';
 part 'wishlist_appbar.dart';
 
 class HomeScreenAppbar extends StatelessWidget implements PreferredSizeWidget{
-  const HomeScreenAppbar({super.key});
+  const HomeScreenAppbar({super.key, required this.height});
+
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -28,5 +30,5 @@ class HomeScreenAppbar extends StatelessWidget implements PreferredSizeWidget{
   }
 
    @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(height);
 }

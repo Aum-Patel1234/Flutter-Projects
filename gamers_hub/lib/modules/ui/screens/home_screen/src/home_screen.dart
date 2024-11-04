@@ -14,25 +14,43 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
+  double _appBarHeight = kToolbarHeight+50;
+
+  void _updateAppBarHeight(int index) {
+    setState(() {
+      _appBarHeight = index == 0 ?  (50 + kToolbarHeight) : kToolbarHeight;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // drawer: const CustomDrawer(),
-      appBar: const HomeScreenAppbar(),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index){
-          context.read<BottomNavigationBloc>().add(BottomNavigationEventOnChanged(index: index));
-        },
-        children: const[
-          Text('data 0'),
-          Text('data 1'),
-          Text('data 2'),
-          SettingsBody(),
-        ],
+    return DefaultTabController(
+      length: 5,
+      child: Scaffold(
+        appBar: HomeScreenAppbar(height: _appBarHeight), // Pass the height to the app bar
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            context.read<BottomNavigationBloc>().add(BottomNavigationEventOnChanged(index: index));
+            _updateAppBarHeight(index); // Update the app bar height based on index
+          },
+          children: const [
+             TabBarView(
+              children: [
+                Center(child: Text('For You Content')),
+                Center(child: Text('Top Charts Content')),
+                Center(child: Text('Events Content')),
+                Center(child: Text('Premium Content')),
+                Center(child: Text('Category')),
+              ],
+            ),
+            Text('data 1'),
+            Text('data 2'),
+            SettingsBody(),
+          ],
+        ),
+        bottomNavigationBar: CustomNavigationBar(pageController: _pageController),
       ),
-      bottomNavigationBar: CustomNavigationBar(pageController: _pageController,),
     );
   }
 
