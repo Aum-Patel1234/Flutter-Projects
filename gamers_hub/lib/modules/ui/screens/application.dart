@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamers_hub/modules/ui/screens/home_screen/bottom_navigation_bar/bloc/bottom_navigation_bloc.dart';
 import 'package:gamers_hub/modules/ui/screens/auth/sign_in/sign_in_screen.dart';
+import 'package:gamers_hub/modules/ui/screens/home_screen/sections/home/home_sections/topcharts/bloc/top_charts_bloc.dart';
 import 'package:gamers_hub/modules/ui/screens/home_screen/src/home_screen.dart';
 import 'auth/bloc/auth_bloc.dart';
 
@@ -35,6 +36,7 @@ class _ApplicationState extends State<Application> {
           return MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => BottomNavigationBloc(),),
+              BlocProvider(create: (context) => TopChartsBloc(),),
             ],
             child: const HomeScreen(),
           );

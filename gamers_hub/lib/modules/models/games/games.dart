@@ -5,19 +5,19 @@ class Games {
   final int? aggregatedRatingCount;
   final List<int>? alternativeNames;
   final List<int>? artworks;
-  final List<String>? bundles;
+  final List<int>? bundles;
   final int? category;
   final List<int>? collections;
   final int? cover;
   final int? createdAt;
-  final List<String>? dlcs;
-  final List<String>? expandedGames;
-  final List<String>? expansions;
+  final List<int>? dlcs;
+  final List<int>? expandedGames;
+  final List<int>? expansions;
   final List<int>? externalGames;
   final int? firstReleaseDate;
-  final List<String>? forks;
-  final String? franchise;
-  final List<String>? franchises;
+  final List<dynamic>? forks;
+  final int? franchise;
+  final List<int>? franchises;
   final List<int>? gameEngines;
   final List<int>? gameLocalizations;
   final List<int>? gameModes;
@@ -28,19 +28,19 @@ class Games {
   final List<int>? languageSupports;
   final List<int>? multiplayerModes;
   final String? name;
-  final String? parentGame;
+  final int? parentGame;
   final List<int>? platforms;
   final List<int>? playerPerspectives;
-  final List<String>? ports;
+  final List<int>? ports;
   final double? rating;
   final int? ratingCount;
   final List<int>? releaseDates;
-  final List<String>? remakes;
-  final List<String>? remasters;
+  final List<int>? remakes;
+  final List<int>? remasters;
   final List<int>? screenshots;
-  final List<String>? similarGames;
+  final List<int>? similarGames;
   final String? slug;
-  final List<String>? standaloneExpansions;
+  final List<int>? standaloneExpansions;
   final int? status;
   final String? storyline;
   final String? summary;
@@ -50,7 +50,7 @@ class Games {
   final int? totalRatingCount;
   final int? updatedAt;
   final String? url;
-  final List<String>? versionParent;
+  // final List<String>? versionParent;
   final String? versionTitle;
   final List<int>? videos;
   final List<int>? websites;
@@ -108,7 +108,7 @@ class Games {
     this.totalRatingCount,
     this.updatedAt,
     this.url,
-    this.versionParent,
+    // this.versionParent,
     this.versionTitle,
     this.videos,
     this.websites,
@@ -123,19 +123,19 @@ class Games {
       aggregatedRatingCount: json['aggregated_rating_count'],
       alternativeNames: List<int>.from(json['alternative_names'] ?? []),
       artworks: List<int>.from(json['artworks'] ?? []),
-      bundles: List<String>.from(json['bundles'] ?? []),
+      bundles: List<int>.from(json['bundles'] ?? []),
       category: json['category'],
       collections: List<int>.from(json['collections'] ?? []),
       cover: json['cover'],
       createdAt: json['created_at'],
-      dlcs: List<String>.from(json['dlcs'] ?? []),
-      expandedGames: List<String>.from(json['expanded_games'] ?? []),
-      expansions: List<String>.from(json['expansions'] ?? []),
+      dlcs: List<int>.from(json['dlcs'] ?? []),
+      expandedGames: List<int>.from(json['expanded_games'] ?? []),
+      expansions: List<int>.from(json['expansions'] ?? []),
       externalGames: List<int>.from(json['external_games'] ?? []),
       firstReleaseDate: json['first_release_date'],
-      forks: List<String>.from(json['forks'] ?? []),
+      forks: List<dynamic>.from(json['forks'] ?? []),
       franchise: json['franchise'],
-      franchises: List<String>.from(json['franchises'] ?? []),
+      franchises: List<int>.from(json['franchises'] ?? []),
       gameEngines: List<int>.from(json['game_engines'] ?? []),
       gameLocalizations: List<int>.from(json['game_localizations'] ?? []),
       gameModes: List<int>.from(json['game_modes'] ?? []),
@@ -149,16 +149,16 @@ class Games {
       parentGame: json['parent_game'],
       platforms: List<int>.from(json['platforms'] ?? []),
       playerPerspectives: List<int>.from(json['player_perspectives'] ?? []),
-      ports: List<String>.from(json['ports'] ?? []),
+      ports: List<int>.from(json['ports'] ?? []),
       rating: json['rating']?.toDouble(),
       ratingCount: json['rating_count'],
       releaseDates: List<int>.from(json['release_dates'] ?? []),
-      remakes: List<String>.from(json['remakes'] ?? []),
-      remasters: List<String>.from(json['remasters'] ?? []),
+      remakes: List<int>.from(json['remakes'] ?? []),
+      remasters: List<int>.from(json['remasters'] ?? []),
       screenshots: List<int>.from(json['screenshots'] ?? []),
-      similarGames: List<String>.from(json['similar_games'] ?? []),
+      similarGames: List<int>.from(json['similar_games'] ?? []),
       slug: json['slug'],
-      standaloneExpansions: List<String>.from(json['standalone_expansions'] ?? []),
+      standaloneExpansions: List<int>.from(json['standalone_expansions'] ?? []),
       status: json['status'],
       storyline: json['storyline'],
       summary: json['summary'],
@@ -168,7 +168,7 @@ class Games {
       totalRatingCount: json['total_rating_count'],
       updatedAt: json['updated_at'],
       url: json['url'],
-      versionParent: List<String>.from(json['version_parent'] ?? []),
+      // versionParent: List<String>.from(json['version_parent'] ?? []),
       versionTitle: json['version_title'],
       videos: List<int>.from(json['videos'] ?? []),
       websites: List<int>.from(json['websites'] ?? []),
@@ -229,7 +229,7 @@ class Games {
       'total_rating_count': totalRatingCount,
       'updated_at': updatedAt,
       'url': url,
-      'version_parent': versionParent,
+      // 'version_parent': versionParent,
       'version_title': versionTitle,
       'videos': videos,
       'websites': websites,
