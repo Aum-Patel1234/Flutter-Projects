@@ -121,7 +121,7 @@ class UserModel {
   factory UserModel.fromFirebaseUser(User user, {bool isGuest = false}) {
     return UserModel(
       id: user.uid,
-      username: user.displayName,
+      username: user.displayName ?? user.email!.split("@")[0],
       email: user.email ?? '',
       phoneNumber: user.phoneNumber,
       profilePicture: user.photoURL,

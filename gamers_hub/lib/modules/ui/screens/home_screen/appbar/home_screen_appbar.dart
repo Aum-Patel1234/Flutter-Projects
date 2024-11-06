@@ -10,10 +10,8 @@ part 'mygames_appbar.dart';
 part 'settings_appbar.dart';
 part 'wishlist_appbar.dart';
 
-class HomeScreenAppbar extends StatelessWidget implements PreferredSizeWidget{
-  const HomeScreenAppbar({super.key, required this.height});
-
-  final double height;
+class HomeScreenAppbar extends StatelessWidget{
+  const HomeScreenAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +19,11 @@ class HomeScreenAppbar extends StatelessWidget implements PreferredSizeWidget{
       builder: (context,state){
         switch(state.index){
           case 0: return const HomeBodyAppbar();
-          case 1: return const WishlistAppbar();
+          case 1: return const GameVerseAppbar();
           case 2: return const MygamesAppbar();
           default: return const SettingsAppbar();
         }
       },
     );
   }
-
-   @override
-  Size get preferredSize => Size.fromHeight(height);
 }

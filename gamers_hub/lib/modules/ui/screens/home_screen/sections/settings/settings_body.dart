@@ -14,6 +14,7 @@ class SettingsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: EdgeInsets.zero,                             // to eliminate inherited padding
       children: [
         ListTile(
           leading: ClipOval(
@@ -29,7 +30,7 @@ class SettingsBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                context.read<AuthBloc>().state.userModel!.username!,
+                context.read<AuthBloc>().state.userModel!.username??"",
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontSize: 16,
